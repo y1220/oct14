@@ -1,5 +1,5 @@
 class MealsController < ApplicationController
   def index
-    @meals=["pizza","pasta","pasticcio","tiramisu","pudding"]
+    @meals = Meal.all
   end
 end

@@ -1,18 +1,8 @@
-<header>
-  <div class="header-logo">
-    <a href="/">Happy recipe</a>
-  </div>
-  <ul class="header-menus">
-    <li>
-      <a href="/about">About us</a>
-    </li>
-  </ul>
-</header>
 <div class="main meals-index">
   <div class="container">
     <% @meals.each do |meal|%>
       <div class="meals-index-item">
-        <%= meal%>
+        <%= meal.name%>
       </div>
     <% end%>
   </div>

@@ -4,12 +4,23 @@
     <title>Blog</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
-
   <body>
+    <header>
+      <div class="header-logo">
+        <%= link_to("Happy recipe","/")%>
+      </div>
+      <ul class="header-menus">
+        <li>
+          <%= link_to("About us","/about")%>
+        </li>
+        <li>
+          <%= link_to("meals","/meals/index")%>
+        </li>
+      </ul>
+    </header>
     <%= yield %>
   </body>
 </html>
