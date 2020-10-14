@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'meals/index' => "meals#index"
   #get 'home/top'
   get '/' => "home#top"
   get 'about' => "home#about"
