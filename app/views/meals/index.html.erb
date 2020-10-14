@@ -8,10 +8,9 @@
     </li>
   </ul>
 </header>
-<%meals=["pizza","pasta","pasticcio","tiramisu"]%>
 <div class="main meals-index">
   <div class="container">
-    <% meals.each do |meal|%>
+    <% @meals.each do |meal|%>
       <div class="meals-index-item">
         <%= meal%>
       </div>
