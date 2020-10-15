@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  get 'users/index'
+  get 'users/index' => "users#index"
+  get "users/:id" => "users#show"
+
   get 'meals/index' => "meals#index"
   # has to be above index to access correctly
   get 'meals/new' => "meals#new"
