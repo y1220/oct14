@@ -1,6 +1,13 @@
 Rails.application.routes.draw do
+
+
+  # get/post url => controller name #action
+  post "users/create" => "users#create"
+
   get 'users/index' => "users#index"
+  get 'signup' => "users#new"
   get "users/:id" => "users#show"
+
 
   get 'meals/index' => "meals#index"
   # has to be above index to access correctly
