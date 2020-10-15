@@ -6,6 +6,7 @@
       <%= "meal: #{@meal.name}"%>
       <div class="post-menus">
         <%= link_to("modify", "/meals/#{@meal.id}/edit") %>
+        <%= link_to("delete", "/meals/#{@meal.id}/destroy",{method:"post"}) %>
       </div>
     </div>
   </div>

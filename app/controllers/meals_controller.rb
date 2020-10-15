@@ -31,4 +31,10 @@ class MealsController < ApplicationController
     redirect_to("/meals/index")
   end
 
+  def destroy
+    @meal = Meal.find_by(id: params[:id])
+    @meal.destroy
+    redirect_to("/meals/index")
+  end
+
 end
