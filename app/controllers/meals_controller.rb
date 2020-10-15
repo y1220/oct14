@@ -1,6 +1,6 @@
 class MealsController < ApplicationController
   def index
-    @meals = Meal.all
+    @meals = Meal.all.order(created_at: :desc)
   end
 
   # show action -> to show recipe depends on each meal
@@ -18,6 +18,10 @@ class MealsController < ApplicationController
     @meal.save
 
     redirect_to("/meals/index")
+  end
+
+  def edit
+    @meal = Meal.find_by(id: params[:id])
   end
 
 

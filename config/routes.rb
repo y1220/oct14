@@ -4,8 +4,9 @@ Rails.application.routes.draw do
   get 'meals/new' => "meals#new"
   # has to be below index to access correctly
   get 'meals/:id' => "meals#show"
-
   post "meals/create" => "meals#create"
+  get "meals/:id/edit" => "meals#edit"
+
 
   #get 'home/top'
   get '/' => "home#top"

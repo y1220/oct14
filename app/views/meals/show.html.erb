@@ -4,6 +4,9 @@
       <!-- <p>recipe</p>  -->
       <!-- <%= "recipe of id: #{@id}"%> -->
       <%= "meal: #{@meal.name}"%>
+      <div class="post-menus">
+        <%= link_to("modify", "/meals/#{@meal.id}/edit") %>
+      </div>
     </div>
   </div>
 </div>
