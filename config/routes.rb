@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'users/index'
   get 'meals/index' => "meals#index"
   # has to be above index to access correctly
   get 'meals/new' => "meals#new"
