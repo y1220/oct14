@@ -9,13 +9,17 @@ class UsersController < ApplicationController
 
   def new
     # NOT HERE!!!!! @user = User.new(name: params[:name], email: params[:email])
+    @user = User.new
   end
 
   def create
-    @user = User.new(name: params[:user_name], email: params[:email])
-    @user.save
-
-    redirect_to("/users/#{@user.id}")
+    @user = User.new(name: params[:user_name], email: params[:email], password: params[:user_password])
+    if @user.save
+      session[:user_id]=@user.id
+      redirect_to("/users/#{@user.id}")
+    else
+      render("users/new")
+    end
   end
 
   def edit
