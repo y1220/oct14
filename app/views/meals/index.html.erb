@@ -2,7 +2,8 @@
   <div class="container">
     <% @meals.each do |meal|%>
       <div class="meals-index-item">
-        <%= meal.name%>
+        <!--<%= meal.name%>-->
+        <%= link_to(meal.name,"/meals/#{meal.id}")%>
       </div>
     <% end%>
   </div>

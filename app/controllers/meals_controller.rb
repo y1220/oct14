@@ -5,6 +5,7 @@ class MealsController < ApplicationController
 
   # show action -> to show recipe depends on each meal
   def show
-    @id = params[:id]
+    #@id = params[:id]
+    @meal = Meal.find_by(id: params[:id])
   end
 end
