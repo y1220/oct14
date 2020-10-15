@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   get 'meals/:id' => "meals#show"
   post "meals/create" => "meals#create"
   get "meals/:id/edit" => "meals#edit"
+  post "meals/:id/update" => "meals#update"
 
 
   #get 'home/top'

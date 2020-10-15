@@ -1,11 +1,13 @@
 <div class="main meals-new">
   <div class="container">
     <h1 class="form-heading">Modify the recipe name</h1>
-    <div class="form">
-      <div class="form-body">
-        <textarea><%= @meal.name %></textarea>
-        <input type="submit" value="save">
+    <%= form_tag("/meals/#{@meal.id}/update") do %>
+      <div class="form">
+        <div class="form-body">
+          <textarea name="meal_name"><%= @meal.name %></textarea>
+          <input type="submit" value="save">
+        </div>
       </div>
-    </div>
+    <%end%>
   </div>
 </div>

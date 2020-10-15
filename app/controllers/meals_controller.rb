@@ -24,5 +24,11 @@ class MealsController < ApplicationController
     @meal = Meal.find_by(id: params[:id])
   end
 
+  def update
+    @meal = Meal.find_by(id: params[:id])
+    @meal.name = params[:meal_name]
+    @meal.save
+    redirect_to("/meals/index")
+  end
 
 end
