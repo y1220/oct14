@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
   get 'meals/index' => "meals#index"
+  # has to be above index to access correctly
+  get 'meals/new' => "meals#new"
   # has to be below index to access correctly
   get 'meals/:id' => "meals#show"
+
   #get 'home/top'
   get '/' => "home#top"
   get 'about' => "home#about"
