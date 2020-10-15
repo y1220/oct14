@@ -13,24 +13,34 @@
         <%= link_to("Happy recipe","/")%>
       </div>
       <ul class="header-menus">
-        <li>
-          <%= link_to("About us","/about")%>
-        </li>
-        <li>
-          <%= link_to("Meals","/meals/index")%>
-        </li>
-        <li>
-          <%= link_to("New meal","/meals/new")%>
-        </li>
-        <li>
-          <%= link_to("All users","/users/index")%>
-        </li>
-        <li>
-          <%= link_to("Sign up","/signup")%>
-        </li>
-        <li>
-          <%= link_to("Login","/login")%>
-        </li>
+        <% if session[:user_id] %>
+          <li>
+            user_id:
+            <%=session[:user_id]%>
+          </li>
+          <li>
+            <%= link_to("Meals","/meals/index")%>
+          </li>
+          <li>
+            <%= link_to("New meal","/meals/new")%>
+          </li>
+          <li>
+            <%= link_to("All users","/users/index")%>
+          </li>
+          <li>
+            <%= link_to("logout", "/logout", {method: :post})%>
+          </li>
+        <%else%>
+          <li>
+            <%= link_to("About us","/about")%>
+          </li>
+          <li>
+            <%= link_to("Sign up","/signup")%>
+          </li>
+          <li>
+            <%= link_to("Login","/login")%>
+          </li>
+        <% end %>
       </ul>
     </header>
     <%= yield %>
