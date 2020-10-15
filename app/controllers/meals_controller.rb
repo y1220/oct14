@@ -13,5 +13,12 @@ class MealsController < ApplicationController
 
   end
 
+  def create
+    @meal = Meal.new(name: params[:meal_name])
+    @meal.save
+
+    redirect_to("/meals/index")
+  end
+
 
 end
