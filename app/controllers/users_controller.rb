@@ -17,4 +17,34 @@ class UsersController < ApplicationController
 
     redirect_to("/users/#{@user.id}")
   end
+
+  def edit
+    @user = User.find_by(id: params[:id])
+  end
+
+  def update
+    @user = User.find_by(id: params[:id])
+    @user.name = params[:user_name]
+    @user.email = params[:email]
+    @user.save
+
+    redirect_to("/users/#{@user.id}")
+  end
+
+  def login_form
+
+  end
+
+  def login
+    @user = User.find_by(email: params[:email],password: params[:password])
+    if @user
+
+      redirect_to("/meals/index")
+
+    else
+
+      render("users/login_form")
+
+    end
+  end
 end

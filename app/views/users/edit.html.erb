@@ -1,0 +1,18 @@
+<div class="main users-new">
+  <div class="container">
+    <h1 class="form-heading">Modify the user information</h1>
+    <%= form_tag("/users/#{@user.id}/update") do %>
+      <div class="form">
+        <div class="form-body">
+          <p>user name
+            <p>
+              <input name="user_name" value="<%=@user.name%>">
+              <p>email
+                <p>
+                  <input name="email" value="<%=@user.email%>">
+                  <input type="submit" value="save">
+                </div>
+              </div>
+            <%end%>
+          </div>
+        </div>

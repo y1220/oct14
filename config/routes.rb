@@ -2,11 +2,19 @@ Rails.application.routes.draw do
 
 
   # get/post url => controller name #action
-  post "users/create" => "users#create"
+
+  get "login" => "users#login_form"
+  post "login" => "users#login"
+
 
   get 'users/index' => "users#index"
   get 'signup' => "users#new"
   get "users/:id" => "users#show"
+  post "users/create" => "users#create"
+
+  get "users/:id/edit" => "users#edit"
+  post "users/:id/update" => "users#update"
+
 
 
   get 'meals/index' => "meals#index"
@@ -23,6 +31,8 @@ Rails.application.routes.draw do
   #get 'home/top'
   get '/' => "home#top"
   get 'about' => "home#about"
+
+
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
