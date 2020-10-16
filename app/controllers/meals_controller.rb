@@ -11,7 +11,7 @@ class MealsController < ApplicationController
   def show
     #@id = params[:id]
     @meal = Meal.find_by(id: params[:id])
-    @user = User.find_by(id: @meal.user_id)
+    @user = @meal.user
   end
 
   def new
