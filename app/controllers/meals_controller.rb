@@ -1,4 +1,8 @@
 class MealsController < ApplicationController
+
+
+  before_action :authenticate_user
+
   def index
     @meals = Meal.all.order(created_at: :desc)
   end
@@ -10,14 +14,16 @@ class MealsController < ApplicationController
   end
 
   def new
-
+    @meal = Meal.new
   end
 
   def create
     @meal = Meal.new(name: params[:meal_name])
-    @meal.save
-
-    redirect_to("/meals/index")
+    if @meal.save
+      redirect_to("/meals/index")
+    else
+      render("meals/new")
+    end
   end
 
   def edit
@@ -27,8 +33,11 @@ class MealsController < ApplicationController
   def update
     @meal = Meal.find_by(id: params[:id])
     @meal.name = params[:meal_name]
-    @meal.save
-    redirect_to("/meals/index")
+    if @meal.save
+      redirect_to("/meals/index")
+    else
+      render("meals/edit")
+    end
   end
 
   def destroy

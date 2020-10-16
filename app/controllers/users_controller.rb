@@ -1,4 +1,7 @@
 class UsersController < ApplicationController
+
+  before_action :authenticate_user ,{only: [:index, :show, :edit, :update]}
+
   def index
     @users = User.all
   end
@@ -30,9 +33,11 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.name = params[:user_name]
     @user.email = params[:email]
-    @user.save
-
-    redirect_to("/users/#{@user.id}")
+    if @user.save
+      redirect_to("/users/#{@user.id}")
+    else
+      render("users/edit")
+    end
   end
 
   def login_form
@@ -44,18 +49,14 @@ class UsersController < ApplicationController
     if @user
       session[:user_id] = @user.id
       redirect_to("/meals/index")
-
     else
-
       render("users/login_form")
-
     end
   end
 
   def logout
     session[:user_id] = nil
     redirect_to("/login")
-
   end
 
 end
