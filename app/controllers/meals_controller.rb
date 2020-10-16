@@ -20,7 +20,7 @@ class MealsController < ApplicationController
   end
 
   def create
-    @meal = Meal.new(name: params[:meal_name],user_id: @current_user.id)
+    @meal = Meal.new(name: params[:meal_name],user_id: @current_user.id, content: params[:content])
     if @meal.save
       redirect_to("/meals/index")
     else
