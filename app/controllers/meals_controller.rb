@@ -2,6 +2,7 @@ class MealsController < ApplicationController
 
 
   before_action :authenticate_user
+  before_action :ensure_correct_user,{only: [:edit, :update, :destroy]}
 
   def index
     @meals = Meal.all.order(created_at: :desc)
@@ -45,6 +46,13 @@ class MealsController < ApplicationController
     @meal = Meal.find_by(id: params[:id])
     @meal.destroy
     redirect_to("/meals/index")
+  end
+
+  def ensure_correct_user
+    @meal= Meal.find_by(id: params[:id])
+    if @meal.user_id != @current_user.id
+      redirect_to("/meals/index")
+    end
   end
 
 end
