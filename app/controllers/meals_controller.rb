@@ -11,6 +11,7 @@ class MealsController < ApplicationController
   def show
     #@id = params[:id]
     @meal = Meal.find_by(id: params[:id])
+    @user = User.find_by(id: @meal.user_id)
   end
 
   def new
@@ -18,7 +19,7 @@ class MealsController < ApplicationController
   end
 
   def create
-    @meal = Meal.new(name: params[:meal_name])
+    @meal = Meal.new(name: params[:meal_name],user_id: @current_user.id)
     if @meal.save
       redirect_to("/meals/index")
     else
