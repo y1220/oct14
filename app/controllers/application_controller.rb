@@ -13,5 +13,12 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def forbid_login_user
+    # already loginned
+    if @current_user
+      redirect_to("/meals/index")
+    end
+  end
+
 
 end
