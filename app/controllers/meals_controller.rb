@@ -13,6 +13,7 @@ class MealsController < ApplicationController
     #@id = params[:id]
     @meal = Meal.find_by(id: params[:id])
     @user = @meal.user
+    @mealType = MealType.find_by(id: @meal.meal_type)
   end
 
   def new
@@ -21,10 +22,11 @@ class MealsController < ApplicationController
   end
 
   def create
-    #@mealType = MealTypes.find_by(description: params[:meal_type])
+    #@mealType = MealType.find_by(description: :value)
+
     #@meal = Meal.new(name: params[:meal_name],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
-    @meal = Meal.new(name: params[:meal_name],user_id: @current_user.id, content: params[:content], meal_type: params[:mealType.id])
-    @mealTypes = MealType.all
+    @meal = Meal.new(name: params[:meal_name],user_id: @current_user.id, content: params[:content], meal_type: params[:meal_type])
+    #@mealTypes = MealType.all
     if @meal.save
       redirect_to("/meals/index")
     else
