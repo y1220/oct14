@@ -20,12 +20,17 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(name: params[:user_name], email: params[:email], password: params[:user_password])
-    if @user.save
-      session[:user_id]=@user.id
-      flash[:notice]= "Thank you for the registration!"
-      redirect_to("/users/#{@user.id}")
+    if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
+      if @user.save
+        session[:user_id]=@user.id
+        flash[:notice]= "Thank you for the registration!"
+        redirect_to("/users/#{@user.id}")
+      else
+        flash[:notice]= "Something went wrong..try again!"
+        render("users/new")
+      end
     else
-      flash[:notice]= "Something went wrong..try again!"
+      flash[:notice]= "Inserted email is not valid..try again!"
       render("users/new")
     end
   end
@@ -39,12 +44,17 @@ class UsersController < ApplicationController
     @user.name = params[:user_name]
     @user.email = params[:email]
     @user.password = params[:password]
-    if @user.save
-      flash[:notice]= "Updated successfully!"
-      redirect_to("/users/#{@user.id}")
+    if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
+      if @user.save
+        flash[:notice]= "Updated successfully!"
+        redirect_to("/users/#{@user.id}")
+      else
+        flash[:notice]= "Something went wrong..try again!"
+        render("users/edit")
+      end
     else
-      flash[:notice]= "Something went wrong..try again!"
-      render("users/edit")
+      flash[:notice]= "Inserted email is not valid..try again!"
+      render("users/new")
     end
   end
 
@@ -55,12 +65,17 @@ class UsersController < ApplicationController
   def login
     #@user = User.find_by(email: params[:email],password_digest: params[:password])
     @user = User.find_by(email: params[:email])
-    if @user.authenticate(params[:password])
-      session[:user_id] = @user.id
-      flash[:notice]= "Loggined successfully!"
-      redirect_to("/meals/index")
+    if @user
+      if @user.authenticate(params[:password])
+        session[:user_id] = @user.id
+        flash[:notice]= "Loggined successfully!"
+        redirect_to("/meals/index")
+      else
+        flash[:notice]= "Something went wrong..try again!"
+        render("users/login_form")
+      end
     else
-      flash[:notice]= "Something went wrong..try again!"
+      flash[:notice]= "Inserted account doesn't exist..try again!"
       render("users/login_form")
     end
   end
