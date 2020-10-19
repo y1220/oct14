@@ -1,4 +1,4 @@
-#require 'byebug'
+
 
 class User < ApplicationRecord
   validates :name, {presence: true}
@@ -6,7 +6,7 @@ class User < ApplicationRecord
   #validates :password, {presence: true}
   has_secure_password
 
-  #byebug
+
 
   def meals
     return Meal.where(user_id: self.id)

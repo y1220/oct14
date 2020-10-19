@@ -4,20 +4,17 @@
     <div class="form">
       <div class="form-body">
         <% @user.errors.full_messages.each do |message| %>
-          <!--byebug
-          <%= message%>
-          byebug-->
           <div class="form-error">
             <%= message %>
           </div>
         <% end %>
         <%= form_tag("/users/create") do%>
           <p>user name</p>
-          <input name="user_name">
+          <input name="user_name" required="true">
           <p>email</p>
-          <input name="email">
+          <input placeholder="has to include @ and ." name="email" required="true">
           <p>password</p>
-          <input name="user_password" type="password">
+          <input placeholder="4-8 numbers or characters" name="user_password" type="password" required="true">
           <input type="submit" value="send">
         <%end%>
       </div>

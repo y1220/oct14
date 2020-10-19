@@ -5,9 +5,9 @@
       <div class="form-body">
         <%= form_tag("/login") do%>
         <p>email</p>
-        <input name="email">
+        <input placeholder="has to include @ and ." name="email" required="true">
         <p>password</p>
-        <input name="password" type="password">
+        <input placeholder="4-8 numbers or characters" name="password" type="password" required="true">
         <input type="submit" value="login">
         <%end%>
       </div>

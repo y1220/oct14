@@ -1,3 +1,5 @@
+require 'byebug'
+
 class UsersController < ApplicationController
 
   before_action :authenticate_user ,{only: [:index, :show, :edit, :update]}
@@ -21,12 +23,17 @@ class UsersController < ApplicationController
   def create
     @user = User.new(name: params[:user_name], email: params[:email], password: params[:user_password])
     if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
-      if @user.save
-        session[:user_id]=@user.id
-        flash[:notice]= "Thank you for the registration!"
-        redirect_to("/users/#{@user.id}")
+      if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
+        if @user.save
+          session[:user_id]=@user.id
+          flash[:notice]= "Thank you for the registration!"
+          redirect_to("/users/#{@user.id}")
+        else
+          flash[:notice]= "Something went wrong..try again!"
+          render("users/new")
+        end
       else
-        flash[:notice]= "Something went wrong..try again!"
+        flash[:notice]= "Inserted password is not valid..try again!"
         render("users/new")
       end
     else
@@ -45,12 +52,17 @@ class UsersController < ApplicationController
     @user.email = params[:email]
     @user.password = params[:password]
     if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
-      if @user.save
-        flash[:notice]= "Updated successfully!"
-        redirect_to("/users/#{@user.id}")
+      if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
+        if @user.save
+          flash[:notice]= "Updated successfully!"
+          redirect_to("/users/#{@user.id}")
+        else
+          flash[:notice]= "Something went wrong..try again!"
+          render("users/edit")
+        end
       else
-        flash[:notice]= "Something went wrong..try again!"
-        render("users/edit")
+        flash[:notice]= "Inserted password is not valid..try again!"
+        render("users/new")
       end
     else
       flash[:notice]= "Inserted email is not valid..try again!"

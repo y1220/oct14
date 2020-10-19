@@ -10,14 +10,14 @@
         <% end %>
         <%= form_tag("/meals/create") do %>
           <p>title</p>
-          <textarea name="title"></textarea>
+          <textarea name="title" required="true"></textarea>
           <p>content</p>
-          <textarea name="content"></textarea>
+          <textarea name="content" required="true"></textarea>
           <p>type</p>
-          <input type="text" name="meal_type" list="typelist">
+          <input type="text" name="meal_type" list="typelist" autocomplete="off" required="true">
           <datalist id="typelist">
             <% @mealTypes.each do |mealType|%>
-              <option value="<%= mealType.description %>" label="<%= mealType.description%>"></option>
+              <option value="<%= mealType.description %>"></option>
             <% end%>
           </datalist>
           <p></p>

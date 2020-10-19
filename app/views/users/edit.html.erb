@@ -10,11 +10,11 @@
         <% end %>
         <%= form_tag("/users/#{@user.id}/update") do%>
           <p>user name</p>
-          <input name="user_name" value="<%=@user.name%>">
+          <input name="user_name" value="<%=@user.name%>" required="true">
           <p>email</p>
-          <input name="email" value="<%=@user.email%>">
+          <input placeholder="has to include @ and ."  name="email" value="<%=@user.email%>" required="true">
           <p>password</p>
-          <input name="password" value="<%=@user.password%>" type="password">
+          <input placeholder="4-8 numbers or characters" name="password" value="<%=@user.password%>" type="password" required="true" >
           <input type="submit" value="save">
         <%end%>
       </div>
