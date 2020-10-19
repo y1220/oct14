@@ -9,7 +9,7 @@
     </div>
     <% @user.meals.each do |meal| %>
       <div class="meals-index-item">
-        <%= link_to(meal.name, "/meals/#{meal.id}") %>
+        <%= link_to(meal.title, "/meals/#{meal.id}") %>
       </div>
     <% end %>
   </div>

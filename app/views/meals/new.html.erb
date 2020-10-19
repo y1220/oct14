@@ -1,24 +1,29 @@
 <div class="main meals-new">
   <div class="container">
     <h1 class="form-heading">New recipe</h1>
-    <%= form_tag("/meals/create") do%>
-      <div class="form">
-        <div class="form-body">
-          <p>name</p>
-          <textarea name="meal_name"></textarea>
+    <div class="form">
+      <div class="form-body">
+        <% @meal.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
+        <%= form_tag("/meals/create") do %>
+          <p>title</p>
+          <textarea name="title"></textarea>
           <p>content</p>
           <textarea name="content"></textarea>
           <p>type</p>
           <input type="text" name="meal_type" list="typelist">
           <datalist id="typelist">
             <% @mealTypes.each do |mealType|%>
-              <option value="<%= mealType.id %>" label="<%= mealType.description%>"></option>
+              <option value="<%= mealType.description %>" label="<%= mealType.description%>"></option>
             <% end%>
           </datalist>
           <p></p>
           <input type="submit" value="send">
-        </div>
+        <%end%>
       </div>
-    <%end%>
+    </div>
   </div>
 </div>

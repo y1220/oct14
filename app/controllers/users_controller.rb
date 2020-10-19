@@ -22,8 +22,10 @@ class UsersController < ApplicationController
     @user = User.new(name: params[:user_name], email: params[:email], password: params[:user_password])
     if @user.save
       session[:user_id]=@user.id
+      flash[:notice]= "Thank you for the registration!"
       redirect_to("/users/#{@user.id}")
     else
+      flash[:notice]= "Something went wrong..try again!"
       render("users/new")
     end
   end
@@ -36,9 +38,12 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     @user.name = params[:user_name]
     @user.email = params[:email]
+    @user.password = params[:password]
     if @user.save
+      flash[:notice]= "Updated successfully!"
       redirect_to("/users/#{@user.id}")
     else
+      flash[:notice]= "Something went wrong..try again!"
       render("users/edit")
     end
   end
@@ -48,22 +53,27 @@ class UsersController < ApplicationController
   end
 
   def login
-    @user = User.find_by(email: params[:email],password: params[:password])
-    if @user
+    #@user = User.find_by(email: params[:email],password_digest: params[:password])
+    @user = User.find_by(email: params[:email])
+    if @user.authenticate(params[:password])
       session[:user_id] = @user.id
+      flash[:notice]= "Loggined successfully!"
       redirect_to("/meals/index")
     else
+      flash[:notice]= "Something went wrong..try again!"
       render("users/login_form")
     end
   end
 
   def logout
     session[:user_id] = nil
+    flash[:notice]= "Logouted successfully!"
     redirect_to("/login")
   end
 
   def ensure_correct_user
     if  @current_user.id != params[:id].to_i
+      flash[:notice]= "You don't have a right to modify this page"
       redirect_to("/meals/index")
     end
   end
