@@ -3,10 +3,17 @@
     <div class="meals-show-item">
       <!-- <p>recipe</p>  -->
       <!-- <%= "recipe of id: #{@id}"%> -->
-      <%= "meal: #{@meal.name}"%>
-      <div class="post-menus">
-        <%= link_to("modify", "/meals/#{@meal.id}/edit") %>
-        <%= link_to("delete", "/meals/#{@meal.id}/destroy",{method:"post"}) %>
+      <!--<%= @user.name%> -->
+      <p><%= "chef"%>
+        <%= link_to(@user.name, "/users/#{@user.id}")%></p>
+      <p><%= "meal name: #{@meal.name}"%></p>
+      <p><%= "recipe: #{@meal.content}"%></p>
+      <p><%= "type of meal: #{@mealType.description}"%></p>
+      <div class="meal-menus">
+        <% if @meal.user_id == @current_user.id %>
+          <%= link_to("modify", "/meals/#{@meal.id}/edit") %>
+          <%= link_to("delete", "/meals/#{@meal.id}/destroy",{method:"post"}) %>
+        <%end%>
       </div>
     </div>
   </div>

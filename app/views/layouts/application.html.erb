@@ -10,7 +10,11 @@
   <body>
     <header>
       <div class="header-logo">
-        <%= link_to("Happy recipe","/")%>
+        <% if @current_user %>
+          <%= link_to("Happy recipe", "/meals/index") %>
+        <% else %>
+          <%= link_to("Happy recipe", "/") %>
+        <% end %>
       </div>
       <ul class="header-menus">
         <% current_user = User.find_by(id: session[:user_id])%>

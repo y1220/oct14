@@ -3,7 +3,14 @@
     <div class="user">
       <h2><%= @user.name%></h2>
       <p><%= @user.email%></p>
-      <%= link_to("modify", "/users/#{@user.id}/edit") %>
+      <% if @user.id==@current_user.id%>
+        <%= link_to("modify", "/users/#{@user.id}/edit") %>
+      <%end%>
     </div>
+    <% @user.meals.each do |meal| %>
+      <div class="meals-index-item">
+        <%= link_to(meal.name, "/meals/#{meal.id}") %>
+      </div>
+    <% end %>
   </div>
 </div>

@@ -4,7 +4,18 @@
     <%= form_tag("/meals/create") do%>
       <div class="form">
         <div class="form-body">
+          <p>name</p>
           <textarea name="meal_name"></textarea>
+          <p>content</p>
+          <textarea name="content"></textarea>
+          <p>type</p>
+          <input type="text" name="meal_type" list="typelist">
+          <datalist id="typelist">
+            <% @mealTypes.each do |mealType|%>
+              <option value="<%= mealType.id %>" label="<%= mealType.description%>"></option>
+            <% end%>
+          </datalist>
+          <p></p>
           <input type="submit" value="send">
         </div>
       </div>

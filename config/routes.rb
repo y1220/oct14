@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
 
+  get 'meal_types/assignment'
   # get/post url => controller name #action
 
   get "login" => "users#login_form"
