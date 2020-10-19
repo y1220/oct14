@@ -10,14 +10,14 @@
             </div>
           <% end %>
           <p>title</p>
-          <textarea name="title"><%=@meal.title%></textarea>
+          <textarea name="title" required="true"><%=@meal.title%></textarea>
           <p>content</p>
-          <textarea name="content"><%=@meal.content%></textarea>
+          <textarea name="content" required="true"><%=@meal.content%></textarea>
           <p>type</p>
           <input type="text" name="meal_type" list="typelist">
           <datalist id="typelist">
             <% @mealTypes.each do |mealType|%>
-              <option value="<%= mealType.description %>" label="<%= mealType.description%>"></option>
+              <option value="<%= mealType.description %>" label="<%= mealType.description%>" required="true"></option>
             <% end%>
           </datalist>
           <p></p>

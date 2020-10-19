@@ -22,28 +22,34 @@ class MealsController < ApplicationController
   end
 
   def create
-    @mealTypes = MealType.all
-    @mealType = MealType.find_by(description: params[:meal_type])
     @meal = Meal.new
-    if @mealType
-      #@meal = Meal.new(name: params[:meal_name],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
-      @meal = Meal.new(title: params[:title],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
-      #@mealTypes = MealType.all
-      if @meal
-        if @meal.save
-          flash[:notice]= "Created new recipe successfully!"
-          redirect_to("/meals/index")
+    @mealTypes = MealType.all
+    if params[:title].present? && params[:content].present? && params[:meal_type].present?
+      #unless !params[:title].present? || !params[:content].present?|| !params[:meal_type].present?
+      @mealType = MealType.find_by(description: params[:meal_type])
+      if @mealType
+        #@meal = Meal.new(name: params[:meal_name],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
+        @meal = Meal.new(title: params[:title],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
+        #@mealTypes = MealType.all
+        if @meal
+          if @meal.save
+            flash[:notice]= "Created new recipe successfully!"
+            redirect_to("/meals/index")
+          else
+            flash[:notice]= "Save function went wrong..try again!"
+            render("meals/new")
+          end
         else
-          flash[:notice]= "Save function went wrong..try again!"
+          flash[:notice]= "Reading the insertions went wrong..try again!"
           render("meals/new")
         end
       else
-        flash[:notice]= "Reading the insertions went wrong..try again!"
+        flash[:notice]= "No type has been selected..try again!"
         render("meals/new")
       end
     else
-      flash[:notice]= "No type has been selected..try again!"
-      render("meals/new")
+      flash[:notice]= "Reading the insertions went wrong..try again!!!!"
+      render("meals/new")#GOT PROBLEM!!!-> fixed unless->if else
     end
   end
 
@@ -56,21 +62,26 @@ class MealsController < ApplicationController
     @mealTypes = MealType.all
     @meal = Meal.find_by(id: params[:id])
     if @meal
-      @mealType = MealType.find_by(description: params[:meal_type])
-      @meal.title = params[:title]
-      @meal.content = params[:content]
-      if @mealType
-        @meal.meal_type = @mealType.id
-        if @meal.save
-          flash[:notice]= "Modified successfully!"
-          redirect_to("/meals/index")
+      if params[:title].present? && params[:content].present? && params[:meal_type].present?
+        @mealType = MealType.find_by(description: params[:meal_type])
+        @meal.title = params[:title]
+        @meal.content = params[:content]
+        if @mealType
+          @meal.meal_type = @mealType.id
+          if @meal.save
+            flash[:notice]= "Modified successfully!"
+            redirect_to("/meals/index")
+          else
+            flash[:notice]= "Save function went wrong..try again!"
+            render("meals/edit")
+          end
         else
-          flash[:notice]= "Save function went wrong..try again!"
+          flash[:notice]= "No type has been selected..try again!"
           render("meals/edit")
         end
       else
-        flash[:notice]= "No type has been selected..try again!"
-        render("meals/edit")
+        flash[:notice]= "Reading the insertions went wrong..try again!!!!"
+        render("meals/new")
       end
     else
       flash[:notice]= "Inserted id doesn't exist..try again!"

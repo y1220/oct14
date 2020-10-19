@@ -21,23 +21,29 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new(name: params[:user_name], email: params[:email], password: params[:user_password])
-    if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
-      if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
-        if @user.save
-          session[:user_id]=@user.id
-          flash[:notice]= "Thank you for the registration!"
-          redirect_to("/users/#{@user.id}")
+    @user = User.new # Needed for printing error messages
+    if params[:user_name].present? && params[:email].present? && params[:user_password].present?
+      @user = User.new(name: params[:user_name], email: params[:email], password: params[:user_password])
+      if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
+        if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
+          if @user.save
+            session[:user_id]=@user.id
+            flash[:notice]= "Thank you for the registration!"
+            redirect_to("/users/#{@user.id}")
+          else
+            flash[:notice]= "Something went wrong..try again!"
+            render("users/new")
+          end
         else
-          flash[:notice]= "Something went wrong..try again!"
+          flash[:notice]= "Inserted password is not valid..try again!"
           render("users/new")
         end
       else
-        flash[:notice]= "Inserted password is not valid..try again!"
+        flash[:notice]= "Inserted email is not valid..try again!"
         render("users/new")
       end
     else
-      flash[:notice]= "Inserted email is not valid..try again!"
+      flash[:notice]= "Reading the insertions went wrong..try again!!!!"
       render("users/new")
     end
   end
@@ -48,25 +54,30 @@ class UsersController < ApplicationController
 
   def update
     @user = User.find_by(id: params[:id])
-    @user.name = params[:user_name]
-    @user.email = params[:email]
-    @user.password = params[:password]
-    if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
-      if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
-        if @user.save
-          flash[:notice]= "Updated successfully!"
-          redirect_to("/users/#{@user.id}")
+    if params[:user_name].present? && params[:email].present? && params[:password].present?
+      @user.name = params[:user_name]
+      @user.email = params[:email]
+      @user.password = params[:password]
+      if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
+        if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:password])
+          if @user.save
+            flash[:notice]= "Updated successfully!"
+            redirect_to("/users/#{@user.id}")
+          else
+            flash[:notice]= "Something went wrong..try again!"
+            render("users/#{@user.id}/edit")
+          end
         else
-          flash[:notice]= "Something went wrong..try again!"
-          render("users/edit")
+          flash[:notice]= "Inserted password is not valid..try again!"
+          render("users/#{@user.id}/edit")
         end
       else
-        flash[:notice]= "Inserted password is not valid..try again!"
-        render("users/new")
+        flash[:notice]= "Inserted email is not valid..try again!"
+        render("users/#{@user.id}/edit")
       end
     else
-      flash[:notice]= "Inserted email is not valid..try again!"
-      render("users/new")
+      flash[:notice]= "Reading the insertions went wrong..try again!!!!"
+      render("users/#{@user.id}/edit")
     end
   end
 
