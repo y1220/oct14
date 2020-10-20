@@ -1,6 +1,6 @@
 <div class="main meals-new">
   <div class="container">
-    <h1 class="form-heading">New recipe</h1>
+    <h1 class="form-heading">Comment</h1>
     <div class="form">
       <div class="form-body">
         <% @comment.errors.full_messages.each do |message| %>
@@ -8,7 +8,7 @@
             <%= message %>
           </div>
         <% end %>
-        <%= form_tag("/meals/#{@meal.user.id}/comments/create") do %>
+        <%= form_tag("/meals/#{@meal.id}/comments/create") do %>
           <p>message</p>
           <textarea name="message" required="true"></textarea>
           <p></p>

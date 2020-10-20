@@ -8,6 +8,7 @@ class Meal < ApplicationRecord
   belongs_to :user
 
 
+  has_many :comments, dependent: :destroy
   #def user
   #return User.find_by(id: self.user_id)
   #end
