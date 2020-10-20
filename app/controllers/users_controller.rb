@@ -6,6 +6,8 @@ class UsersController < ApplicationController
   before_action :forbid_login_user,{only:[:create, :login_form, :login]}
   before_action :ensure_correct_user ,{only: [:edit, :update]}
 
+  #private :show_error (error_message, return_to_address)
+
 
   def index
     @users = User.all
@@ -20,6 +22,8 @@ class UsersController < ApplicationController
     @user = User.new
   end
 
+
+
   def create
     @user = User.new # Needed for printing error messages
     if params[:user_name].present? && params[:email].present? && params[:user_password].present?
@@ -31,20 +35,16 @@ class UsersController < ApplicationController
             flash[:notice]= "Thank you for the registration!"
             redirect_to("/users/#{@user.id}")
           else
-            flash[:notice]= "Something went wrong..try again!"
-            render("users/new")
+            show_error("Something went wrong..try again!","users/new")
           end
         else
-          flash[:notice]= "Inserted password is not valid..try again!"
-          render("users/new")
+          show_error("Inserted password is not valid..try again!","users/new")
         end
       else
-        flash[:notice]= "Inserted email is not valid..try again!"
-        render("users/new")
+        show_error("Inserted email is not valid..try again!","users/new")
       end
     else
-      flash[:notice]= "Reading the insertions went wrong..try again!!!!"
-      render("users/new")
+      show_error("Reading the insertions went wrong..try again!!!!","users/new")
     end
   end
 
@@ -114,6 +114,12 @@ class UsersController < ApplicationController
       flash[:notice]= "You don't have a right to modify this page"
       redirect_to("/meals/index")
     end
+  end
+
+  private
+  def show_error (error_message, return_to_address)
+    flash[:notice]= error_message
+    render(return_to_address)
   end
 
 end
