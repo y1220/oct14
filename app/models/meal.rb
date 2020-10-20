@@ -4,6 +4,9 @@ class Meal < ApplicationRecord
   validates :title, {presence: true}
   validates :meal_type, {presence: true}
 
+  belongs_to :users, :foreign_key => "user_id"
+
+
   def user
     return User.find_by(id: self.user_id)
   end

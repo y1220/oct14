@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get "meals/:id/edit" => "meals#edit"
   post "meals/:id/update" => "meals#update"
   post "meals/:id/destroy" => "meals#destroy"
+  post "users/:id/destroy" => "users#destroy"
 
 
   #get 'home/top'

@@ -5,6 +5,7 @@
       <p><%= @user.email%></p>
       <% if @user.id==@current_user.id%>
         <%= link_to("modify", "/users/#{@user.id}/edit") %>
+        <%= link_to("delete", "/users/#{@user.id}/destroy",{method:"post"}) %>
       <%end%>
     </div>
     <% @user.meals.each do |meal| %>

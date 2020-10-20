@@ -29,7 +29,9 @@ class MealsController < ApplicationController
       @mealType = MealType.find_by(description: params[:meal_type])
       if @mealType
         #@meal = Meal.new(name: params[:meal_name],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
-        @meal = Meal.new(title: params[:title],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
+        @meal = @current_user.meals.create(title: params[:title],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
+
+        #@meal = Meal.new(title: params[:title],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
         #@mealTypes = MealType.all
         if @meal
           if @meal.save

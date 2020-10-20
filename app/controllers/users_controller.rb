@@ -2,9 +2,9 @@ require 'byebug'
 
 class UsersController < ApplicationController
 
-  before_action :authenticate_user ,{only: [:index, :show, :edit, :update]}
+  before_action :authenticate_user ,{only: [:index, :show, :edit, :update, :destroy]}
   before_action :forbid_login_user,{only:[:create, :login_form, :login]}
-  before_action :ensure_correct_user ,{only: [:edit, :update]}
+  before_action :ensure_correct_user ,{only: [:edit, :update, :destroy]}
 
   #private :show_error (error_message, return_to_address)
 
@@ -116,7 +116,13 @@ class UsersController < ApplicationController
     end
   end
 
-  private
+  def destroy
+    @current_user.destroy
+    flash[:notice]= "Deleted successfully!"
+    redirect_to("/users/new")
+  end
+
+  private  ## has to be the bottom of the page not to let other method as private one
   def show_error (error_message, return_to_address)
     flash[:notice]= error_message
     render(return_to_address)

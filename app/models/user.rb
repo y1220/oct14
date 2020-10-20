@@ -6,6 +6,8 @@ class User < ApplicationRecord
   #validates :password, {presence: true}
   has_secure_password
 
+  has_many :meals, :foreign_key => "user_id", dependent: :destroy
+
 
 
   def meals
