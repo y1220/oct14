@@ -1,2 +1,20 @@
-<h1>Comments#new</h1>
-<p>Find me in app/views/comments/new.html.erb</p>
+<div class="main meals-new">
+  <div class="container">
+    <h1 class="form-heading">New recipe</h1>
+    <div class="form">
+      <div class="form-body">
+        <% @comment.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
+        <%= form_tag("/meals/#{@meal.user.id}/comments/create") do %>
+          <p>message</p>
+          <textarea name="message" required="true"></textarea>
+          <p></p>
+          <input type="submit" value="send">
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

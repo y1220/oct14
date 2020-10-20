@@ -14,6 +14,7 @@
           <%= link_to("modify", "/meals/#{@meal.id}/edit") %>
           <%= link_to("delete", "/meals/#{@meal.id}/destroy",{method:"post"}) %>
         <%end%>
+        <%= link_to("comment", "/meals/#{@meal.id}/comments/new") %>
       </div>
     </div>
   </div>
