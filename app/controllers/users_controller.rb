@@ -64,20 +64,16 @@ class UsersController < ApplicationController
             flash[:notice]= "Updated successfully!"
             redirect_to("/users/#{@user.id}")
           else
-            flash[:notice]= "Something went wrong..try again!"
-            render("users/#{@user.id}/edit")
+            show_error("Something went wrong..try again!","users/#{@user.id}/edit")
           end
         else
-          flash[:notice]= "Inserted password is not valid..try again!"
-          render("users/#{@user.id}/edit")
+          show_error("Inserted password is not valid..try again!","users/#{@user.id}/edit")
         end
       else
-        flash[:notice]= "Inserted email is not valid..try again!"
-        render("users/#{@user.id}/edit")
+        show_error("Inserted email is not valid..try again!","users/#{@user.id}/edit")
       end
     else
-      flash[:notice]= "Reading the insertions went wrong..try again!!!!"
-      render("users/#{@user.id}/edit")
+      show_error("Reading the insertions went wrong..try again!!!!","users/#{@user.id}/edit")
     end
   end
 

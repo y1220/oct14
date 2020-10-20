@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
 
+  get 'meals/:id/comments/new' => "comments#new"
+  post "meals/:id/comments/create" => "comments#create"
   get 'meal_types/assignment'
   # get/post url => controller name #action
 

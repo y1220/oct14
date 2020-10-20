@@ -38,20 +38,16 @@ class MealsController < ApplicationController
             flash[:notice]= "Created new recipe successfully!"
             redirect_to("/meals/index")
           else
-            flash[:notice]= "Save function went wrong..try again!"
-            render("meals/new")
+            show_error("Save function went wrong..try again!","meals/new")
           end
         else
-          flash[:notice]= "Reading the insertions went wrong..try again!"
-          render("meals/new")
+          show_error("Reading the insertions went wrong..try again!","meals/new")
         end
       else
-        flash[:notice]= "No type has been selected..try again!"
-        render("meals/new")
+        show_error("No type has been selected..try again!","meals/new")
       end
     else
-      flash[:notice]= "Reading the insertions went wrong..try again!!!!"
-      render("meals/new")#GOT PROBLEM!!!-> fixed unless->if else
+      show_error("Reading the insertions went wrong..try again!!!!","meals/new")
     end
   end
 
@@ -74,20 +70,16 @@ class MealsController < ApplicationController
             flash[:notice]= "Modified successfully!"
             redirect_to("/meals/index")
           else
-            flash[:notice]= "Save function went wrong..try again!"
-            render("meals/edit")
+            show_error("Save function went wrong..try again!","meals/edit")
           end
         else
-          flash[:notice]= "No type has been selected..try again!"
-          render("meals/edit")
+          show_error("No type has been selected..try again!","meals/edit")
         end
       else
-        flash[:notice]= "Reading the insertions went wrong..try again!!!!"
-        render("meals/new")
+        show_error("Reading the insertions went wrong..try again!!!!","meals/new")
       end
     else
-      flash[:notice]= "Inserted id doesn't exist..try again!"
-      render("meals/edit")
+      show_error("Inserted id doesn't exist..try again!","meals/edit")
     end
   end
 
@@ -106,6 +98,12 @@ class MealsController < ApplicationController
       flash[:notice]= "You don't have a right to modify this page"
       redirect_to("/meals/index")
     end
+  end
+
+  private  ## has to be the bottom of the page not to let other method as private one
+  def show_error (error_message, return_to_address)
+    flash[:notice]= error_message
+    render(return_to_address)
   end
 
 end
