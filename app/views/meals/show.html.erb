@@ -14,6 +14,11 @@
           <%= link_to("modify", "/meals/#{@meal.id}/edit") %>
           <%= link_to("delete", "/meals/#{@meal.id}/destroy",{method:"post"}) %>
         <%end%>
+        <% @meal.comments.each do |comment|%>
+          <div class="meals-index-item">
+            <%= link_to(comment.message,"/users/#{comment.user_id}")%>
+          </div>
+        <% end%>
         <%= link_to("comment", "/meals/#{@meal.id}/comments/new") %>
       </div>
     </div>

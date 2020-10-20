@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
 
     if @comment.save
       flash[:notice]= "Thank you for your comment!"
-      redirect_to("/meals/index")
+      redirect_to("/meals/#{@meal.id}")
     else
       flash[:notice]= "something went wrong..try again!"
       render("/meals/#{@meal.id}/comments/new")

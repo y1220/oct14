@@ -14,6 +14,7 @@ class MealsController < ApplicationController
     @meal = Meal.find_by(id: params[:id])
     @user = @meal.user
     @mealType = MealType.find_by(id: @meal.meal_type)
+
   end
 
   def new
