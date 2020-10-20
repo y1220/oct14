@@ -4,7 +4,8 @@ class Meal < ApplicationRecord
   validates :title, {presence: true}
   validates :meal_type, {presence: true}
 
-  belongs_to :users, :foreign_key => "user_id"
+  #belongs_to :users, :foreign_key => "user_id"
+  belongs_to :user
 
 
   def user

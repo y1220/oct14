@@ -6,12 +6,12 @@ class User < ApplicationRecord
   #validates :password, {presence: true}
   has_secure_password
 
-  has_many :meals, :foreign_key => "user_id", dependent: :destroy
+  #has_many :meals, :foreign_key => "user_id", dependent: :destroy
+  has_many :meals, dependent: :destroy
 
 
-
-  def meals
-    return Meal.where(user_id: self.id)
-  end
+  #def meals
+  #eturn Meal.where(user_id: self.id)
+  #end
 
 end
