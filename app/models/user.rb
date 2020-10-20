@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
 
   #def meals
-  #eturn Meal.where(user_id: self.id)
+  #return Meal.where(user_id: self.id)
   #end
 
 end
