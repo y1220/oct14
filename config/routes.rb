@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  get "comments/:id/reply" => "comments#reply"
+  post "comments/:id/create_r" => "comments#create_r"
 
   get 'meals/:id/comments/new' => "comments#new"
   post "meals/:id/comments/create" => "comments#create"

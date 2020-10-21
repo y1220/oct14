@@ -1,9 +1,6 @@
 <div class="main meals-show">
   <div class="container">
     <div class="meals-show-item">
-      <!-- <p>recipe</p>  -->
-      <!-- <%= "recipe of id: #{@id}"%> -->
-      <!--<%= @user.name%> -->
       <p><%= "chef"%>
         <%= link_to(@user.name, "/users/#{@user.id}")%></p>
       <p><%= "title: #{@meal.title}"%></p>
@@ -14,13 +11,15 @@
           <%= link_to("modify", "/meals/#{@meal.id}/edit") %>
           <%= link_to("delete", "/meals/#{@meal.id}/destroy",{method:"post"}) %>
         <%end%>
-        <% @meal.comments.each do |comment|%>
-          <div class="meals-index-item">
-            <%= link_to(comment.message,"/users/#{comment.user_id}")%>
-            <%= link_to("reply","/comments/#{comment.id}/reply")%>
-          </div>
-        <% end%>
-        <%= link_to("comment", "/meals/#{@meal.id}/comments/new") %>
+        <div class="meals-index-item">
+          <%= form_tag("/comments/#{@cid}/create_r") do %>
+            <p><%="reply to: #{@to_reply.message}"%></p>
+            <p>reply</p>
+            <textarea name="message" required="true"></textarea>
+            <p></p>
+            <input type="submit" value="send">
+          <%end%>
+        </div>
       </div>
     </div>
   </div>
