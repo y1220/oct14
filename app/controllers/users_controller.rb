@@ -117,8 +117,8 @@ class UsersController < ApplicationController
     @current_user.destroy
     #@comments= Comment.where(commenter: @current_user)
     # @comments.destroy
-    @comments = @current_user.comments
-    @comments.destroy
+    #@comments = @current_user.comments
+    #@comments.destroy
     #flash[:notice]= "Deleted successfully!"
     flash[:notice]= "#{@comments}!"
     redirect_to("/users/new")
