@@ -11,7 +11,7 @@ class CommentsController < ApplicationController
     #@comment= @current_user.comments.create(message: params[:message],meal_id: @meal.id, commenter: @current_user)
     @comment= @meal.comments.create(message: params[:message], commenter: @current_user)
     if @comment.save
-      flash[:notice]= "@comment.commenter: #{@comment.commenter.id}"
+      flash[:notice]= "Comment has been registered!"
       redirect_to("/meals/#{@meal.id}")
     else
       flash[:notice]= "something went wrong..try again!"
@@ -41,7 +41,7 @@ class CommentsController < ApplicationController
     @comment.save
     @mealType = MealType.find_by(id: @meal.meal_type)
     if @comment.save
-      flash[:notice]= "@meal.id: #{@meal.id} @cid: #{@cid} "
+      flash[:notice]= "Comment has been registered!"
       #flash[:notice]= "Thank you for your comment!"
       redirect_to("/meals/#{@meal.id}")
     else

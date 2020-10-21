@@ -27,7 +27,8 @@ class UsersController < ApplicationController
   def create
     @user = User.new # Needed for printing error messages
     if params[:user_name].present? && params[:email].present? && params[:user_password].present?
-      @user = User.new(name: params[:user_name], email: params[:email], password: params[:user_password])
+      #@user = User.new(name: params[:user_name], email: params[:email], password: params[:user_password])
+      @user.assign_attributes(name: params[:user_name], email: params[:email], password: params[:user_password])
       if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
         if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
           if @user.save
@@ -114,7 +115,12 @@ class UsersController < ApplicationController
 
   def destroy
     @current_user.destroy
-    flash[:notice]= "Deleted successfully!"
+    #@comments= Comment.where(commenter: @current_user)
+    # @comments.destroy
+    @comments = @current_user.comments
+    @comments.destroy
+    #flash[:notice]= "Deleted successfully!"
+    flash[:notice]= "#{@comments}!"
     redirect_to("/users/new")
   end
 
