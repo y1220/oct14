@@ -8,11 +8,10 @@ class CommentsController < ApplicationController
 
   def create
     @meal = Meal.find_by(id: params[:id])
-    @comment= @meal.comments.create(message: params[:message],user_id: @current_user.id,comment_id: "")
-    @comment.save
-
+    #@comment= @current_user.comments.create(message: params[:message],meal_id: @meal.id, commenter: @current_user)
+    @comment= @meal.comments.create(message: params[:message], commenter: @current_user)
     if @comment.save
-      flash[:notice]= "Thank you for your comment!"
+      flash[:notice]= "@comment.commenter: #{@comment.commenter.id}"
       redirect_to("/meals/#{@meal.id}")
     else
       flash[:notice]= "something went wrong..try again!"
@@ -27,24 +26,23 @@ class CommentsController < ApplicationController
     @meal=Meal.find_by(id: @comment.meal_id)
     @user = @meal.user
     @mealType = MealType.find_by(id: @meal.meal_type)
-    @reply = @comment.comments.create(message: params[:message],user_id: @current_user.id)
+    #@reply = @comment.comments.create(message: params[:message],user_id: @current_user.id)
     @cid= params[:id]
   end
 
   def create_r
     @cid= params[:id]
     @to_reply= Comment.find_by(id: @cid)
-    @meal=Meal.find_by(id: @to_reply.meal_id)
+    @meal=Meal.find_by(id: @to_reply.meal.id)
     @user = @meal.user
-    @comment= @meal.comments.create(message: params[:message],user_id: @current_user.id,comment_id: @cid)
+    #@comment= @current_user.comments.create(message: params[:message],meal_id: @meal.id,comment_id: @cid)
+    @comment= @meal.comments.create(message: params[:message], commenter: @current_user, comment_id: @cid)
+    #@comment = Comment.new(message: params[:message],user_id: @current_user.id,comment_id: @cid,meal_id: @meal.id)
     @comment.save
-    @meal=Meal.find_by(id: @comment.meal_id)
-    @user = @meal.user
     @mealType = MealType.find_by(id: @meal.meal_type)
-
-
     if @comment.save
-      flash[:notice]= "Thank you for your comment!"
+      flash[:notice]= "@meal.id: #{@meal.id} @cid: #{@cid} "
+      #flash[:notice]= "Thank you for your comment!"
       redirect_to("/meals/#{@meal.id}")
     else
       flash[:notice]= "something went wrong..try again!"

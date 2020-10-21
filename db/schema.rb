@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_073943) do
+ActiveRecord::Schema.define(version: 2020_10_21_123330) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "meal_id"
     t.text "message"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
+    t.integer "commenter"
     t.integer "comment_id"
     t.index ["comment_id"], name: "index_comments_on_comment_id"
+    t.index ["commenter"], name: "index_comments_on_commenter"
     t.index ["meal_id"], name: "index_comments_on_meal_id"
-    t.index ["user_id"], name: "index_comments_on_user_id"
   end
 
   create_table "meal_types", force: :cascade do |t|

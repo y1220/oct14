@@ -1,5 +1,3 @@
-
-
 class User < ApplicationRecord
   validates :name, {presence: true}
   validates :email, {presence: true, uniqueness: true}
@@ -8,7 +6,8 @@ class User < ApplicationRecord
 
   #has_many :meals, :foreign_key => "user_id", dependent: :destroy
   has_many :meals, dependent: :destroy
-  has_many :comments, dependent: :destroy
+  has_many :comments, through: :meals, dependent: :destroy
+  has_many :commenters, through: :comments
   #-> {includes :comments}
 
   #def meals

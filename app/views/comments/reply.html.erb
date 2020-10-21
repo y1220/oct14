@@ -16,7 +16,7 @@
             <p><%="reply to: #{@to_reply.message}"%></p>
             <% @meal.comments.each do |comment|%>
               <% if comment.comment_id.to_i == @cid.to_i %>
-                <%= link_to(" =>#{comment.message}","/users/#{comment.user_id}")%>
+                <%= link_to(" =>#{comment.message}","/users/#{comment.commenter.id}")%>
                 <p></p>
               <% end %>
             <% end%>
