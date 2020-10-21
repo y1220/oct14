@@ -7,7 +7,7 @@ class CommentsController < ApplicationController
 
   def create
     @meal = Meal.find_by(id: params[:id])
-    @comment= @meal.comments.create(message: params[:message])
+    @comment= @meal.comments.create(message: params[:message],user_id: @current_user.id)
     @comment.save
 
     if @comment.save
