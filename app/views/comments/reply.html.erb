@@ -14,6 +14,12 @@
         <div class="meals-index-item">
           <%= form_tag("/comments/#{@cid}/create_r") do %>
             <p><%="reply to: #{@to_reply.message}"%></p>
+            <% @meal.comments.each do |comment|%>
+              <% if comment.comment_id.to_i == @cid.to_i %>
+                <%= link_to(" =>#{comment.message}","/users/#{comment.user_id}")%>
+                <p></p>
+              <% end %>
+            <% end%>
             <p>reply</p>
             <textarea name="message" required="true"></textarea>
             <p></p>

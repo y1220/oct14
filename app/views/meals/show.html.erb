@@ -15,10 +15,12 @@
           <%= link_to("delete", "/meals/#{@meal.id}/destroy",{method:"post"}) %>
         <%end%>
         <% @meal.comments.each do |comment|%>
-          <div class="meals-index-item">
-            <%= link_to(comment.message,"/users/#{comment.user_id}")%>
-            <%= link_to("reply","/comments/#{comment.id}/reply")%>
-          </div>
+          <% if comment.comment_id.blank? %>
+            <div class="meals-index-item">
+              <%= link_to(comment.message,"/users/#{comment.user_id}")%>
+              <%= link_to("reply","/comments/#{comment.id}/reply")%>
+            </div>
+          <% end %>
         <% end%>
         <%= link_to("comment", "/meals/#{@meal.id}/comments/new") %>
       </div>
