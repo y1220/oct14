@@ -9,7 +9,7 @@ class CommentsController < ApplicationController
   def create
     @meal = Meal.find_by(id: params[:id])
     #@comment= @current_user.comments.create(message: params[:message],meal_id: @meal.id, commenter: @current_user)
-    @comment= @meal.comments.create(message: params[:message], commenter: @current_user)
+    @comment= @meal.comments.create(message: params[:message], commenter: @current_user.id)
     if @comment.save
       flash[:notice]= "Comment has been registered!"
       redirect_to("/meals/#{@meal.id}")
@@ -36,7 +36,7 @@ class CommentsController < ApplicationController
     @meal=Meal.find_by(id: @to_reply.meal.id)
     @user = @meal.user
     #@comment= @current_user.comments.create(message: params[:message],meal_id: @meal.id,comment_id: @cid)
-    @comment= @meal.comments.create(message: params[:message], commenter: @current_user, comment_id: @cid)
+    @comment= @meal.comments.create(message: params[:message], commenter: @current_user.id, comment_id: @cid)
     #@comment = Comment.new(message: params[:message],user_id: @current_user.id,comment_id: @cid,meal_id: @meal.id)
     @comment.save
     @mealType = MealType.find_by(id: @meal.meal_type)

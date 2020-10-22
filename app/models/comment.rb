@@ -7,8 +7,8 @@ class Comment < ApplicationRecord
   belongs_to :meal
 
   #belongs_to :commenter
-  #belongs_to :user
-  belongs_to :commenter, class_name: 'User', foreign_key: 'commenter'
+  belongs_to :user, class_name: 'User', foreign_key: 'commenter'
+  #belongs_to :commenter, class_name: 'User', foreign_key: 'commenter'
   belongs_to :comment, class_name: "Comment", optional: true
   has_many :comments,  class_name: "Comment",foreign_key: "comment_id", dependent: :destroy
 
