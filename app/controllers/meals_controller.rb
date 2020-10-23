@@ -110,9 +110,45 @@ class MealsController < ApplicationController
     #  @@s_meals<< meal
     # end
     #end
-    @@t_meals = Meal.where('title LIKE ?', "%#{params[:t_keyword]}%").all
-    @@c_meals = Meal.where('content LIKE ?', "%#{params[:c_keyword]}%").all
-    if @@t_meals || @@c_meals
+
+    #HASH
+    #h = {}
+    #h.merge!(key: "bar")
+    # => {:key=>"bar"}
+
+    #SORT
+    #people.sort_by { |name, age| age }
+    # => [[:joan, 18], [:fred, 23], [:pete, 54]]
+
+    t_keywords = params[:t_keyword].split
+    all_meals = Meal.all
+    h = {}
+    all_meals.each do |meal|
+      count=0
+      t_keywords.each do |keyword|
+        if meal.title.include?(keyword)
+          count +=1
+        end
+      end
+      if count != 0
+        h.merge!(meal.id => count)
+      end
+    end
+    # sort by descending order
+    order= h.sort_by {|id, num| -num}.map {|key,value|key}
+
+    # id -> meal object
+    @@t_meals= []
+    order.each do |id|
+      @@t_meals<< Meal.find_by(id: id)
+    end
+
+
+    #c_keywords = params[:c_keyword].split
+    #@@t_meals = Meal.where('title LIKE ?', "%#{params[:t_keyword]}%").all
+    #@@c_meals = Meal.where('content LIKE ?', "%#{params[:c_keyword]}%").all
+    # if @@t_meals || @@c_meals
+    if @@t_meals
       flash[:notice]= "Searced successfully!"
       redirect_to("/meals/result")
     else
@@ -125,12 +161,12 @@ class MealsController < ApplicationController
     @t_results = []
     @t_results = @@t_meals.clone
 
-    @c_results = []
-    @c_results = @@c_meals.clone
+    #  @c_results = []
+    # @c_results = @@c_meals.clone
 
-    @d_results = []
+    #@d_results = []
     # intersection
-    @d_results = @@t_meals & @@c_meals
+    #@d_results = @@t_meals & @@c_meals
 
 
     #@s_meals= Meal.all
