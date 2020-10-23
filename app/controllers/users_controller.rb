@@ -32,6 +32,7 @@ class UsersController < ApplicationController
       if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
         if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
           if @user.save
+            TaskMailer.creation_email(@user).deliver_now
             session[:user_id]=@user.id
             flash[:notice]= "Thank you for the registration!"
             redirect_to("/users/#{@user.id}")
