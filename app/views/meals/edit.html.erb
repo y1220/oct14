@@ -14,12 +14,11 @@
           <p>content</p>
           <textarea name="content" required="true"><%=@meal.content%></textarea>
           <p>type</p>
-          <input type="text" name="meal_type" list="typelist" autocomplete="off" >
-          <datalist id="typelist">
+          <select name="meal_type" id="typelist" >
             <% @mealTypes.each do |mealType|%>
-              <option value="<%= mealType.description %>" label="<%= mealType.description%>" required="true"></option>
+              <option value="<%= mealType.description %>"><%=mealType.description%></option>
             <% end%>
-          </datalist>
+          </select>
           <p></p>
           <input type="submit" value="send">
         </div>

@@ -127,6 +127,9 @@ class MealsController < ApplicationController
       count=0
       t_keywords.each do |keyword|
         if meal.title.include?(keyword)
+          count +=2 # High priority than matching content
+        end
+        if meal.content.include?(keyword)
           count +=1
         end
       end
