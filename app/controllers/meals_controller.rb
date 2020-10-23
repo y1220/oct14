@@ -110,9 +110,9 @@ class MealsController < ApplicationController
     #  @@s_meals<< meal
     # end
     #end
-    @@s_meals = Meal.where('title LIKE ?', "%#{params[:keyword]}%").all
-    @@sc_meals = Meal.where('content LIKE ?', "%#{params[:c_keyword]}%").all
-    if @@s_meals || @@sc_meals
+    @@t_meals = Meal.where('title LIKE ?', "%#{params[:t_keyword]}%").all
+    @@c_meals = Meal.where('content LIKE ?', "%#{params[:c_keyword]}%").all
+    if @@t_meals || @@c_meals
       flash[:notice]= "Searced successfully!"
       redirect_to("/meals/result")
     else
@@ -122,11 +122,17 @@ class MealsController < ApplicationController
   end
 
   def result
-    @results = []
-    @results = @@s_meals.clone
+    @t_results = []
+    @t_results = @@t_meals.clone
 
     @c_results = []
-    @c_results = @@sc_meals.clone
+    @c_results = @@c_meals.clone
+
+    @d_results = []
+    # intersection
+    @d_results = @@t_meals & @@c_meals
+
+
     #@s_meals= Meal.all
     #@s_meals = Meal.find_by(title: params[:keyword])
     #@s_meals = Meal.where("title like ?", "%#{params[:keyword]}%")
