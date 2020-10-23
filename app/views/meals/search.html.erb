@@ -1,0 +1,15 @@
+<div class="main meals-new">
+  <div class="container">
+    <h1 class="form-heading">Search</h1>
+    <div class="form">
+      <div class="form-body">
+        <%= form_tag("/meals/create_s") do %>
+          <p>keyword</p>
+          <textarea name="keyword" required="true"></textarea>
+          <p></p>
+          <input type="submit" value="send">
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get "meals/search" => "meals#search"
+  post "meals/create_s" => "meals#create_s"
+  get "meals/result" => "meals#result"
+
   get "comments/:id/reply" => "comments#reply"
   post "comments/:id/create_r" => "comments#create_r"
 
@@ -28,10 +32,15 @@ Rails.application.routes.draw do
   # has to be above index to access correctly
   get 'meals/new' => "meals#new"
   # has to be below index to access correctly
+
+
   get 'meals/:id' => "meals#show"
   post "meals/create" => "meals#create"
+
   get "meals/:id/edit" => "meals#edit"
   post "meals/:id/update" => "meals#update"
+
+
   post "meals/:id/destroy" => "meals#destroy"
   post "users/:id/destroy" => "users#destroy"
 

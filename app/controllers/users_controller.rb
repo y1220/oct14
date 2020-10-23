@@ -116,9 +116,9 @@ class UsersController < ApplicationController
   def destroy
     #@comments = @current_user.comments
     #@comments.destroy
-    sql = "DELETE from comments
-            WHERE commenter = #{@current_user.id}"
-    ActiveRecord::Base.connection.execute(sql)
+    #sql = "DELETE from comments
+    #       WHERE commenter = #{@current_user.id}"
+    #ActiveRecord::Base.connection.execute(sql)
     #@comments= Comment.where(commenter: @current_user)
     @current_user.destroy
     #@comments= Comment.where(commenter: @current_user)
