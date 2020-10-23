@@ -98,10 +98,19 @@ class MealsController < ApplicationController
     #tmp= Meal.where(title: params[:keyword])
     #@@s_meals = tmp.clone
     #@@s_meals = Meal.where(title: params[:keyword])
-    @@s_meals= Meal.where(title: params[:keyword])
+    #@@s_meals= Meal.where(title: params[:keyword])
     # @@s_meals="SELECT *
     #             FROM meals
     #           WHERE title LIKE '%#{params[:keyword]}%'"
+    #@@s_meals = []
+    #all_m= Meal.all
+
+    #all_m.each do |meal|
+    #if "/#{params[:keyword])}/".match(meal.title)
+    #  @@s_meals<< meal
+    # end
+    #end
+    @@s_meals = Meal.where('title LIKE ?', "%#{params[:keyword]}%").all
     if @@s_meals
       flash[:notice]= "Searced successfully!"
       redirect_to("/meals/result")
