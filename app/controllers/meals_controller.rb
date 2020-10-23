@@ -111,7 +111,8 @@ class MealsController < ApplicationController
     # end
     #end
     @@s_meals = Meal.where('title LIKE ?', "%#{params[:keyword]}%").all
-    if @@s_meals
+    @@sc_meals = Meal.where('content LIKE ?', "%#{params[:c_keyword]}%").all
+    if @@s_meals || @@sc_meals
       flash[:notice]= "Searced successfully!"
       redirect_to("/meals/result")
     else
@@ -123,6 +124,9 @@ class MealsController < ApplicationController
   def result
     @results = []
     @results = @@s_meals.clone
+
+    @c_results = []
+    @c_results = @@sc_meals.clone
     #@s_meals= Meal.all
     #@s_meals = Meal.find_by(title: params[:keyword])
     #@s_meals = Meal.where("title like ?", "%#{params[:keyword]}%")

@@ -4,8 +4,10 @@
     <div class="form">
       <div class="form-body">
         <%= form_tag("/meals/create_s") do %>
-          <p>keyword</p>
+          <p>keyword in the title</p>
           <textarea name="keyword" required="true"></textarea>
+          <p>keyword in the content</p>
+          <textarea name="c_keyword" required="true"></textarea>
           <p></p>
           <input type="submit" value="send">
         <%end%>

@@ -1,6 +1,16 @@
 <div class="main meals-index">
   <div class="container">
+    <h1 class="form-heading">Title matched</h1>
     <% @results.each do |meal|%>
+      <div class="meals-index-item">
+        <%= link_to(meal.title,"/meals/#{meal.id}")%>
+        <div class="meal-user-name">
+          <%= link_to(meal.user.name,"/users/#{meal.user.id}")%>
+        </div>
+      </div>
+    <% end%>
+    <h1 class="form-heading">Content matched</h1>
+    <% @c_results.each do |meal|%>
       <div class="meals-index-item">
         <%= link_to(meal.title,"/meals/#{meal.id}")%>
         <div class="meal-user-name">
