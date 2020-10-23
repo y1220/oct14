@@ -3,7 +3,7 @@ class MealsController < ApplicationController
 
   before_action :authenticate_user
   before_action :ensure_correct_user,{only: [:edit, :update, :destroy]}
-  before_action :search, {only: [:result]}
+  #before_action :search, {only: [:result]}
 
   def index
     @meals = Meal.all.order(created_at: :desc)
@@ -89,16 +89,21 @@ class MealsController < ApplicationController
 
 
   def search
-    @s_meals = Meal.where(title: params[:keyword])
+    # @@s_meals ||=nil
 
   end
 
   #$ ids = ||
   def create_s
-
-    @s_meals = Meal.where(title: params[:keyword])
-    if @s_meals
-      flash[:notice]= "Searced successfully!#{@s_meals.first.title}"
+    #tmp= Meal.where(title: params[:keyword])
+    #@@s_meals = tmp.clone
+    #@@s_meals = Meal.where(title: params[:keyword])
+    @@s_meals= Meal.where(title: params[:keyword])
+    # @@s_meals="SELECT *
+    #             FROM meals
+    #           WHERE title LIKE '%#{params[:keyword]}%'"
+    if @@s_meals
+      flash[:notice]= "Searced successfully!"
       redirect_to("/meals/result")
     else
       show_error("No meal found..try again!", "meals/search")
@@ -107,7 +112,8 @@ class MealsController < ApplicationController
   end
 
   def result
-    # @@s_meals
+    @results = []
+    @results = @@s_meals.clone
     #@s_meals= Meal.all
     #@s_meals = Meal.find_by(title: params[:keyword])
     #@s_meals = Meal.where("title like ?", "%#{params[:keyword]}%")
