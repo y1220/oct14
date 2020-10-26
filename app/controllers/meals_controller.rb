@@ -121,29 +121,49 @@ class MealsController < ApplicationController
     # => [[:joan, 18], [:fred, 23], [:pete, 54]]
 
     t_keywords = params[:t_keyword].split
+    c_keywords = params[:c_keyword].split
     all_meals = Meal.all
-    h = {}
+    t_h = {}
+    c_h = {}
     all_meals.each do |meal|
-      count=0
+      t_count=0
       t_keywords.each do |keyword|
-        if meal.title.include?(keyword)
-          count +=2 # High priority than matching content
-        end
-        if meal.content.include?(keyword)
-          count +=1
+        if meal.title.downcase.include?(keyword.downcase)
+          t_count +=1
         end
       end
-      if count != 0
-        h.merge!(meal.id => count)
+      if t_count != 0
+        t_h.merge!(meal.id => t_count)
+      end
+      c_count=0
+      c_keywords.each do |keyword|
+        if meal.content.downcase.include?(keyword.downcase)
+          c_count +=1
+        end
+      end
+
+      if c_count != 0
+        c_h.merge!(meal.id => c_count)
       end
     end
+
+
+
     # sort by descending order
-    order= h.sort_by {|id, num| -num}.map {|key,value|key}
+    t_order= t_h.sort_by {|id, num| -num}.map {|key,value|key}
 
     # id -> meal object
     @@t_meals= []
-    order.each do |id|
+    t_order.each do |id|
       @@t_meals<< Meal.find_by(id: id)
+    end
+
+    c_order= c_h.sort_by {|id, num| -num}.map {|key,value|key}
+
+    # id -> meal object
+    @@c_meals= []
+    c_order.each do |id|
+      @@c_meals<< Meal.find_by(id: id)
     end
 
 
@@ -151,7 +171,7 @@ class MealsController < ApplicationController
     #@@t_meals = Meal.where('title LIKE ?', "%#{params[:t_keyword]}%").all
     #@@c_meals = Meal.where('content LIKE ?', "%#{params[:c_keyword]}%").all
     # if @@t_meals || @@c_meals
-    if @@t_meals
+    if @@t_meals||@@c_meals
       flash[:notice]= "Searced successfully!"
       redirect_to("/meals/result")
     else
@@ -161,15 +181,18 @@ class MealsController < ApplicationController
   end
 
   def result
+
+    @d_results = []
+    # intersection
+    @d_results = @@t_meals & @@c_meals
+
     @t_results = []
     @t_results = @@t_meals.clone
 
-    #  @c_results = []
-    # @c_results = @@c_meals.clone
+    @c_results = []
+    @c_results = @@c_meals.clone
 
-    #@d_results = []
-    # intersection
-    #@d_results = @@t_meals & @@c_meals
+
 
 
     #@s_meals= Meal.all

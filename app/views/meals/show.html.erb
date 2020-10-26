@@ -19,7 +19,9 @@
             <div class="meals-index-item">
               <%= link_to(comment.message,"/users/#{comment.user.id}")%>
               <%#= link_to(comment.message,"/users/#{comment.commenter.id}")%>
-              <%= link_to("reply","/comments/#{comment.id}/reply")%>
+              <div class="reply">
+                <%= link_to("reply","/comments/#{comment.id}/reply")%>
+              </div>
             </div>
           <% end %>
         <% end%>

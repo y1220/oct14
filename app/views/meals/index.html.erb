@@ -1,5 +1,6 @@
 <div class="main meals-index">
   <div class="container">
+    <h1 class="users-heading">all meals</h1>
     <% @meals.each do |meal|%>
       <div class="meals-index-item">
         <%= link_to(meal.title,"/meals/#{meal.id}")%>
