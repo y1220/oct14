@@ -50,4 +50,41 @@ class CommentsController < ApplicationController
     end
   end
 
+  def edit
+    @comment = Comment.find_by(id: params[:id])
+  end
+
+  def update
+    @comment = Comment.find_by(id: params[:id])
+    if @comment
+      if params[:message].present?
+        @comment.message = params[:message]
+        if @comment.save
+          flash[:notice]= "Modified successfully!"
+          redirect_to("/meals/index")
+        else
+          show_error("Save function went wrong..try again!","comments/#{@comment.id}/edit")
+        end
+      else
+        show_error("Please fill the message..try again!!!!","comments/#{@comment.id}/edit")
+      end
+    else
+      show_error("Inserted id doesn't exist..try again!","comments/#{@comment.id}/edit")
+    end
+  end
+
+  def destroy
+    @comment = Comment.find_by(id: params[:id])
+    flash[:notice]= "Deleted successfully!"
+    @comment.destroy
+    redirect_to("/meals/index")
+  end
+
+  private  ## has to be the bottom of the page not to let other method as private one
+  def show_error (error_message, return_to_address)
+    flash[:notice]= error_message
+    render(return_to_address)
+  end
+
+
 end

@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   get 'meals/:id/comments/new' => "comments#new"
   post "meals/:id/comments/create" => "comments#create"
+  get "comments/:id/edit" => "comments#edit"
+  post "comments/:id/update" => "comments#update"
   get 'meal_types/assignment'
   # get/post url => controller name #action
 
@@ -41,6 +43,7 @@ Rails.application.routes.draw do
   post "meals/:id/update" => "meals#update"
 
 
+  post "comments/:id/destroy" => "comments#destroy"
   post "meals/:id/destroy" => "meals#destroy"
   post "users/:id/destroy" => "users#destroy"
 

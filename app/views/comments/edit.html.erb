@@ -1,0 +1,26 @@
+<div class="main meals-new">
+  <div class="container">
+    <div class="meal-info">
+      <p><%= "chef"%>
+        <%= link_to(@comment.meal.user.name, "/users/#{@comment.meal.user.id}")%></p>
+      <p><%= "title: #{@comment.meal.title}"%></p>
+      <p><%= "recipe: #{@comment.meal.content}"%></p>
+    </div>
+    <h1 class="form-heading">Modify the comment message</h1>
+    <%= form_tag("/comments/#{@comment.id}/update") do %>
+      <div class="form">
+        <div class="form-body">
+          <% @comment.errors.full_messages.each do |message| %>
+            <div class="form-error">
+              <%= message %>
+            </div>
+          <% end %>
+          <p>message</p>
+          <textarea name="message" required="true"><%=@comment.message%></textarea>
+          <p></p>
+          <input type="submit" value="send">
+        </div>
+      </div>
+    <%end%>
+  </div>
+</div>
