@@ -121,6 +121,12 @@ class UsersController < ApplicationController
     #       WHERE commenter = #{@current_user.id}"
     #ActiveRecord::Base.connection.execute(sql)
     #@comments= Comment.where(commenter: @current_user)
+    all_meals= @current_user.meals
+    all_meals.each do |meal|
+      if meal.image.present?
+        File.delete(Rails.root + "public/meal_images/#{meal.image}")
+      end
+    end
     @current_user.destroy
     #@comments= Comment.where(commenter: @current_user)
     # @comments.destroy

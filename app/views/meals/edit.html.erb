@@ -1,7 +1,7 @@
 <div class="main meals-new">
   <div class="container">
     <h1 class="form-heading">Modify the recipe name</h1>
-    <%= form_tag("/meals/#{@meal.id}/update") do %>
+    <%= form_tag("/meals/#{@meal.id}/update",{multipart:true}) do %>
       <div class="form">
         <div class="form-body">
           <% @meal.errors.full_messages.each do |message| %>
@@ -19,6 +19,8 @@
               <option value="<%= mealType.description %>"><%=mealType.description%></option>
             <% end%>
           </select>
+          <p>image(optional: choose image file(jpg, jpeg, png))</p>
+          <input name="image" type="file" accept="image/*">
           <p></p>
           <input type="submit" value="send">
         </div>

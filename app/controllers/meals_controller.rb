@@ -1,8 +1,10 @@
+require 'mimemagic'
+require  "byebug"
 class MealsController < ApplicationController
 
 
   before_action :authenticate_user
-  before_action :ensure_correct_user,{only: [:edit, :update, :destroy]}
+  before_action :ensure_correct_user,{only: [:edit, :update,:edit_image, :update_image, :destroy]}
   #before_action :search, {only: [:result]}
 
   def index
@@ -32,11 +34,17 @@ class MealsController < ApplicationController
         @meal = @current_user.meals.create(title: params[:title],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
         if @meal
           if @meal.save
-            if params[:image].present?
+            #byebug
+            #if params[:image].present?
+            #if MIME::Types.type_for(params[:image]).first.try(:media_type) == "image"   File.open("/path/to/pdf")
+            if MimeMagic.by_magic(params[:image])!=nil&&MimeMagic.by_magic(params[:image]).type.include?("image")
+              #if params[:image].size_range
+              #if params[:image].content_type && params[:image].size
               @meal.image= "#{@meal.id}.jpg"
               @meal.save
               image_pic= params[:image]
               File.binwrite("public/meal_images/#{@meal.image}",image_pic.read)
+              #end
             end
             flash[:notice]= "Created new recipe successfully!"
             redirect_to("/meals/index")
@@ -72,19 +80,27 @@ class MealsController < ApplicationController
         if @mealType
           @meal.meal_type = @mealType.id
           if @meal.save
+            if MimeMagic.by_magic(params[:image])!=nil&&MimeMagic.by_magic(params[:image]).type.include?("image")
+              if params[:image].size_range
+                @meal.image= "#{@meal.id}.jpg"
+                @meal.save
+                image_pic= params[:image]
+                File.binwrite("public/meal_images/#{@meal.image}",image_pic.read)
+              end
+            end
             flash[:notice]= "Modified successfully!"
             redirect_to("/meals/index")
           else
-            show_error("Save function went wrong..try again!","meals/edit")
+            show_error("Save function went wrong..try again!","meals/#{@meal.id}/edit")
           end
         else
-          show_error("No type has been selected..try again!","meals/edit")
+          show_error("No type has been selected..try again!","meals/#{@meal.id}/edit")
         end
       else
         show_error("Reading the insertions went wrong..try again!!!!","meals/new")
       end
     else
-      show_error("Inserted id doesn't exist..try again!","meals/edit")
+      show_error("Inserted id doesn't exist..try again!","meals/#{@meal.id}/edit")
     end
   end
 
@@ -208,6 +224,7 @@ class MealsController < ApplicationController
 
   def destroy
     @meal = Meal.find_by(id: params[:id])
+    File.delete(Rails.root + "public/meal_images/#{@meal.image}")
     flash[:notice]= "Deleted successfully!"
     @meal.destroy
     redirect_to("/meals/index")
@@ -225,6 +242,11 @@ class MealsController < ApplicationController
   def show_error (error_message, return_to_address)
     flash[:notice]= error_message
     render(return_to_address)
+  end
+
+
+  def fileupload_param
+    params.require(:fileupload).permit(:file)
   end
 
 end

@@ -1,4 +1,8 @@
 class CommentsController < ApplicationController
+
+
+  before_action :ensure_correct_user,{only: [:edit, :update, :destroy]}
+
   def new
     @meal = Meal.find_by(id: params[:id])
     @comment= Comment.new
