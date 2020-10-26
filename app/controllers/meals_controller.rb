@@ -29,13 +29,15 @@ class MealsController < ApplicationController
       #unless !params[:title].present? || !params[:content].present?|| !params[:meal_type].present?
       @mealType = MealType.find_by(description: params[:meal_type])
       if @mealType
-        #@meal = Meal.new(name: params[:meal_name],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
         @meal = @current_user.meals.create(title: params[:title],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
-
-        #@meal = Meal.new(title: params[:title],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
-        #@mealTypes = MealType.all
         if @meal
           if @meal.save
+            if params[:image].present?
+              @meal.image= "#{@meal.id}.jpg"
+              @meal.save
+              image_pic= params[:image]
+              File.binwrite("public/meal_images/#{@meal.image}",image_pic.read)
+            end
             flash[:notice]= "Created new recipe successfully!"
             redirect_to("/meals/index")
           else

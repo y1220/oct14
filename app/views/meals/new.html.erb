@@ -8,7 +8,7 @@
             <%= message %>
           </div>
         <% end %>
-        <%= form_tag("/meals/create") do %>
+        <%= form_tag("/meals/create",{multipart:true}) do %>
           <p>title</p>
           <textarea name="title" required="true"></textarea>
           <p>content</p>
@@ -19,6 +19,8 @@
               <option value="<%= mealType.description %>"><%=mealType.description%></option>
             <% end%>
           </select>
+          <p>image</p>
+          <input name="image" type="file">
           <p></p>
           <input type="submit" value="send">
         <%end%>

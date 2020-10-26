@@ -4,11 +4,16 @@
       <!-- <p>recipe</p>  -->
       <!-- <%= "recipe of id: #{@id}"%> -->
       <!--<%= @user.name%> -->
-      <p><%= "chef"%>
-        <%= link_to(@user.name, "/users/#{@user.id}")%></p>
-      <p><%= "title: #{@meal.title}"%></p>
-      <p><%= "recipe: #{@meal.content}"%></p>
-      <p><%= "type of meal: #{@mealType.description}"%></p>
+      <div class="meal-info">
+        <p><%= "chef"%>
+          <%= link_to(@user.name, "/users/#{@user.id}")%></p>
+        <p><%= "title: #{@meal.title}"%></p>
+        <p><%= "recipe: #{@meal.content}"%></p>
+        <p><%= "type of meal: #{@mealType.description}"%></p>
+        <%if @meal.image.present? %>
+          <img src="<%= "/meal_images/#{@meal.image}"%>">
+        <%end%>
+      </div>
       <div class="meal-menus">
         <% if @meal.user_id == @current_user.id %>
           <%= link_to("modify", "/meals/#{@meal.id}/edit") %>

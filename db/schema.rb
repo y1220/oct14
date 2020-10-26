@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_21_123330) do
+ActiveRecord::Schema.define(version: 2020_10_26_095254) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "meal_id"
@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2020_10_21_123330) do
     t.string "content"
     t.integer "meal_type"
     t.integer "user_id"
+    t.string "image"
     t.index ["user_id"], name: "index_meals_on_user_id"
   end
 

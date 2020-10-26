@@ -1,14 +1,21 @@
 <div class="main meals-new">
   <div class="container">
-    <h1 class="form-heading">Comment</h1>
-    <div class="form">
-      <div class="form-body">
-        <% @comment.errors.full_messages.each do |message| %>
-          <div class="form-error">
-            <%= message %>
-          </div>
-        <% end %>
-        <%= form_tag("/meals/#{@meal.id}/comments/create") do %>
+    <h1 class="form-heading">Comment to</h1>
+    <div class="meal-info">
+      <p><%= "chef"%>
+        <%= link_to(@meal.user.name, "/users/#{@meal.user.id}")%></p>
+      <p><%= "title: #{@meal.title}"%></p>
+      <p><%= "recipe: #{@meal.content}"%></p>
+    </div>
+    <%= form_tag("/meals/#{@meal.id}/comments/create") do %>
+      <h1 class="form-heading">Comment</h1>
+      <div class="form">
+        <div class="form-body">
+          <% @comment.errors.full_messages.each do |message| %>
+            <div class="form-error">
+              <%= message %>
+            </div>
+          <% end %>
           <p>message</p>
           <textarea name="message" required="true"></textarea>
           <p></p>

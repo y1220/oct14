@@ -15,6 +15,21 @@
   color: #3ecdc6;
 }
 
+.meal-info {
+  padding: 20px 30px;
+  background-color: #e6ffe6;
+  box-shadow: 0 2px 6px #c1ced7;
+}
+
+.meal-info img {
+  width: 800px;
+  height: 500px;
+  border-radius: 20%;
+  box-shadow: 0 2px 6px #c1ced7;
+  margin: 20px 0 20px;
+  object-fit: cover;
+}
+
 .reply {
 	float: right;
 }
