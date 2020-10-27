@@ -1,10 +1,13 @@
 require 'mimemagic'
 require  "byebug"
+#require 'uploaders/file_uploader'
+require 'carrierwave/orm/activerecord'
 class MealsController < ApplicationController
 
 
   before_action :authenticate_user
   before_action :ensure_correct_user,{only: [:edit, :update,:edit_image, :update_image, :destroy]}
+
   #before_action :search, {only: [:result]}
 
   def index
@@ -17,49 +20,55 @@ class MealsController < ApplicationController
     @meal = Meal.find_by(id: params[:id])
     @user = @meal.user
     @mealType = MealType.find_by(id: @meal.meal_type)
+
   end
 
   def new
     @meal = Meal.new
     @mealTypes = MealType.all
+    @descriptions=@mealTypes.map{|x| x.description}
+
   end
 
   def create
     @meal = Meal.new
     @mealTypes = MealType.all
-    if params[:title].present? && params[:content].present? && params[:meal_type].present?
-      #unless !params[:title].present? || !params[:content].present?|| !params[:meal_type].present?
-      @mealType = MealType.find_by(description: params[:meal_type])
-      if @mealType
-        @meal = @current_user.meals.create(title: params[:title],user_id: @current_user.id, content: params[:content], meal_type: @mealType.id)
-        if @meal
-          if @meal.save
-            #byebug
-            #if params[:image].present?
-            #if MIME::Types.type_for(params[:image]).first.try(:media_type) == "image"   File.open("/path/to/pdf")
-            if MimeMagic.by_magic(params[:image])!=nil&&MimeMagic.by_magic(params[:image]).type.include?("image")
-              #if params[:image].size_range
-              #if params[:image].content_type && params[:image].size
-              @meal.image= "#{@meal.id}.jpg"
-              @meal.save
-              image_pic= params[:image]
-              File.binwrite("public/meal_images/#{@meal.image}",image_pic.read)
-              #end
-            end
-            flash[:notice]= "Created new recipe successfully!"
-            redirect_to("/meals/index")
-          else
-            show_error("Save function went wrong..try again!","meals/new")
-          end
-        else
-          show_error("Reading the insertions went wrong..try again!","meals/new")
-        end
-      else
-        show_error("No type has been selected..try again!","meals/new")
+    @descriptions=@mealTypes.map{|x| x.description}
+
+
+    @meal.title=allowed_params["title"]
+    @meal.content=allowed_params["content"]
+    @mealType = MealType.find_by(description: allowed_params["meal_type"])
+    @meal.meal_type=@mealType.id
+    @meal.user_id= @current_user.id
+    image_from_params = params[:meal][:image]
+
+
+    if @meal.save
+      if image_from_params.present?
+        #   @meal.image= "#{@meal.id}.jpg"
+        #    @meal.save
+        #     uploader = FileUploader.new
+        #      uploader.store!(params[:meal][:image])
+        #       @message.photo = @message.photo.filename
+        #@message.save!
+
+
+        #photo = open(File.join("meal",image_from_params.original_filename)) # /meal/pizza.pdf
+        @meal.image = FileUploader.new
+        @meal.image.store!(image_from_params)
+
+        @meal.save!
+        #image_pic= params[:meal][:image]
+        #File.binwrite("public/meal_images/1.jpg",image_pic.read)
+        #File.binwrite("public/meal_images/#{@meal.image}",image_pic.read)
       end
+      flash[:notice]= "New meal created successfully!#{allowed_params["image"].present?}"
+      redirect_to("/meals/index")
     else
-      show_error("Reading the insertions went wrong..try again!!!!","meals/new")
+      show_error("Inserted id doesn't exist..try again!","meals/new")
     end
+
   end
 
 
@@ -67,40 +76,31 @@ class MealsController < ApplicationController
   def edit
     @meal = Meal.find_by(id: params[:id])
     @mealTypes = MealType.all
+    @descriptions=@mealTypes.map{|x| x.description}
   end
 
   def update
     @mealTypes = MealType.all
     @meal = Meal.find_by(id: params[:id])
-    if @meal
-      if params[:title].present? && params[:content].present? && params[:meal_type].present?
-        @mealType = MealType.find_by(description: params[:meal_type])
-        @meal.title = params[:title]
-        @meal.content = params[:content]
-        if @mealType
-          @meal.meal_type = @mealType.id
-          if @meal.save
-            if MimeMagic.by_magic(params[:image])!=nil&&MimeMagic.by_magic(params[:image]).type.include?("image")
-              if params[:image].size_range
-                @meal.image= "#{@meal.id}.jpg"
-                @meal.save
-                image_pic= params[:image]
-                File.binwrite("public/meal_images/#{@meal.image}",image_pic.read)
-              end
-            end
-            flash[:notice]= "Modified successfully!"
-            redirect_to("/meals/index")
-          else
-            show_error("Save function went wrong..try again!","meals/#{@meal.id}/edit")
-          end
-        else
-          show_error("No type has been selected..try again!","meals/#{@meal.id}/edit")
-        end
-      else
-        show_error("Reading the insertions went wrong..try again!!!!","meals/new")
+    @descriptions=@mealTypes.map{|x| x.description}
+
+
+    @meal.title=allowed_params["title"]
+    @meal.content=allowed_params["content"]
+    @mealType = MealType.find_by(description: allowed_params["meal_type"])
+    @meal.meal_type=@mealType.id
+    @meal.user_id= @current_user.id
+    image_from_params = params[:meal][:image]
+    if @meal.save
+      if image_from_params.present?
+        @meal.image = FileUploader.new
+        @meal.image.store!(image_from_params)
+        @meal.save!
       end
+      flash[:notice]= "New meal created successfully!#{allowed_params["image"].present?}"
+      redirect_to("/meals/index")
     else
-      show_error("Inserted id doesn't exist..try again!","meals/#{@meal.id}/edit")
+      show_error("Inserted id doesn't exist..try again!","meals/#{params[:id]}/edit")
     end
   end
 
@@ -248,5 +248,12 @@ class MealsController < ApplicationController
   def fileupload_param
     params.require(:fileupload).permit(:file)
   end
+
+  def allowed_params
+    params.require(:meal).
+      permit(:title, :content, :meal_type)
+  end
+
+
 
 end

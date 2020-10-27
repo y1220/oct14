@@ -39,8 +39,10 @@ Rails.application.routes.draw do
   get 'meals/:id' => "meals#show"
   post "meals/create" => "meals#create"
   #post "meals/:id/delete_image" => "meals#delete_image"
+  #patch "meals/:id/edit" => "meals#edit"
   get "meals/:id/edit" => "meals#edit"
-  post "meals/:id/update" => "meals#update"
+  patch "meals/:id/update" => "meals#update"
+  #post "meals/:id/update" => "meals#update"
 
 
 

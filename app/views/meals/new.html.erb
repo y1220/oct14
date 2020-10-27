@@ -8,21 +8,17 @@
             <%= message %>
           </div>
         <% end %>
-        <%= form_tag("/meals/create",{multipart:true}) do %>
+        <%= form_for @meal,:url => {controller: "meals", action: "create"}, multipart: true do |f| %>
           <p>title</p>
-          <textarea name="title" required="true"></textarea>
+          <%= f.text_field :title%>
           <p>content</p>
-          <textarea name="content" required="true"></textarea>
+          <%= f.text_area :content%>
           <p>type</p>
-          <select name="meal_type" id="typelist" >
-            <% @mealTypes.each do |mealType|%>
-              <option value="<%= mealType.description %>"><%=mealType.description%></option>
-            <% end%>
-          </select>
+          <%= f.select(:meal_type, @descriptions, {}, { :class => 'choose_the_meal_type' }) %>
           <p>image(optional: choose image file(jpg, jpeg, png))</p>
-          <input name="image" type="file" accept="image/*">
+          <%= f.file_field :image, accept: 'image/*'%>
           <p></p>
-          <input type="submit" value="send">
+          <%= f.submit%>
         <%end%>
       </div>
     </div>

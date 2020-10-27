@@ -1,30 +1,29 @@
 <div class="main meals-new">
   <div class="container">
-    <h1 class="form-heading">Modify the recipe name</h1>
-    <%= form_tag("/meals/#{@meal.id}/update",{multipart:true}) do %>
-      <div class="form">
-        <div class="form-body">
-          <% @meal.errors.full_messages.each do |message| %>
-            <div class="form-error">
-              <%= message %>
-            </div>
-          <% end %>
+    <h1 class="users-heading">Modify the recipe</h1>
+    <div class="form">
+      <div class="form-body">
+        <% @meal.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
+        <%= form_for @meal,:url => {controller: "meals", action: "update"}, multipart: true do |f| %>
           <p>title</p>
-          <textarea name="title" required="true"><%=@meal.title%></textarea>
+          <%= f.text_field :title ,value: @meal.title%>
           <p>content</p>
-          <textarea name="content" required="true"><%=@meal.content%></textarea>
+          <%= f.text_area :content ,value: @meal.content%>
           <p>type</p>
-          <select name="meal_type" id="typelist" >
-            <% @mealTypes.each do |mealType|%>
-              <option value="<%= mealType.description %>"><%=mealType.description%></option>
-            <% end%>
-          </select>
+          <%= f.select(:meal_type, @descriptions, {}, { :class => 'choose_the_meal_type' }) %>
           <p>image(optional: choose image file(jpg, jpeg, png))</p>
-          <input name="image" type="file" accept="image/*">
+          <%if @meal.image.present?%>
+            <img src="<%= "#{@meal.image}"%>">
+          <%end%>
+          <%= f.file_field :image, accept: 'image/*'%>
           <p></p>
-          <input type="submit" value="send">
-        </div>
+          <%= f.submit%>
+        <%end%>
       </div>
-    <%end%>
+    </div>
   </div>
 </div>

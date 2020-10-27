@@ -5,13 +5,19 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Choose what kind of storage to use for this uploader:
   storage :file
-  # storage :fog
+
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
-    "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    #{}"uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
+    #{}"#{Rails.root}/public/meal_images"
+    "#{Rails.root}/public/collections_images/"
   end
+  def filename
+    File.join(model.class.name.downcase, "#{model.id}.jpg") # to name file with their id
+  end
+
 
 
 
@@ -25,7 +31,7 @@ class FileUploader < CarrierWave::Uploader::Base
 
   # Process files as they are uploaded:
   # process scale: [200, 300]
-  #
+  # =>
   # def scale(width, height)
   #   # do something
   # end

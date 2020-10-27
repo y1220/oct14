@@ -11,7 +11,7 @@
         <p><%= "recipe: #{@meal.content}"%></p>
         <p><%= "type of meal: #{@mealType.description}"%></p>
         <%if @meal.image.present? %>
-          <img src="<%= "/meal_images/#{@meal.image}"%>">
+          <img src="<%= "#{@meal.image}"%>">
         <%end%>
       </div>
       <div class="meal-menus">
