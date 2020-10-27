@@ -6,6 +6,7 @@ class Meal < ApplicationRecord
   validates :user_id, {presence: true}
   validates :title, {presence: true}
   validates :meal_type, {presence: true}
+  validates_integrity_of :image
   #validates :image, file_size: { less_than: 500.kilobytes }
   #validate :file_size
 

@@ -57,7 +57,6 @@ class MealsController < ApplicationController
         #photo = open(File.join("meal",image_from_params.original_filename)) # /meal/pizza.pdf
         @meal.image = FileUploader.new
         @meal.image.store!(image_from_params)
-
         @meal.save!
         #image_pic= params[:meal][:image]
         #File.binwrite("public/meal_images/1.jpg",image_pic.read)
