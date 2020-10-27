@@ -124,7 +124,9 @@ class UsersController < ApplicationController
     all_meals= @current_user.meals
     all_meals.each do |meal|
       if meal.image.present?
-        File.delete(Rails.root + "public/meal_images/#{meal.image}")
+        #File.delete(Rails.root + "public/meal_images/#{meal.image}")
+        meal.remove_image!
+        meal.save!
       end
     end
     @current_user.destroy

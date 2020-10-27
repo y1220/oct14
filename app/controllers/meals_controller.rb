@@ -224,9 +224,11 @@ class MealsController < ApplicationController
 
   def destroy
     @meal = Meal.find_by(id: params[:id])
-    File.delete(Rails.root + "public/meal_images/#{@meal.image}")
-    flash[:notice]= "Deleted successfully!"
+    @meal.remove_image!
+    @meal.save!
     @meal.destroy
+    #File.delete(Rails.root + "public/collections_image/meal/#{@meal.image}")
+    flash[:notice]= "Deleted successfully!"
     redirect_to("/meals/index")
   end
 
