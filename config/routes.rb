@@ -66,6 +66,7 @@ Rails.application.routes.draw do
     resources :meals, only:[:index, :show, :create]
     get '/meal_name/:id', to: 'meals#show_name'
     get '/meal_user_name/:id', to: 'meals#show_name_of_user_and_meal'
+    get '/show_name_serialize/:id', to: 'meals#show_name_serialize'
 
   end
 

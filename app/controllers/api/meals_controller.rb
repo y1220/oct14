@@ -42,6 +42,12 @@ module Api
     end
 
 
+    def show_name_serialize
+      @meal = Meal.find_by(id: params[:id])
+      render json: @meal.serializable_hash(only: :title)
+    end
+
+
     #private
 
     def allowed_params
