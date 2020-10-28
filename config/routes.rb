@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   patch "meals/:id/update" => "meals#update"
   #post "meals/:id/update" => "meals#update"
 
-
+  #post "users/create_postman" => "users#create_postman"
 
 
   post "comments/:id/destroy" => "comments#destroy"
@@ -56,6 +56,18 @@ Rails.application.routes.draw do
   get '/' => "home#top"
   get 'about' => "home#about"
 
+  namespace :api do
+    get :status, to: 'api#status'
+    #post :status, to: 'api#create_user'
+    #get :login
+    #post :login
+
+    #resources :users
+    resources :meals, only:[:index, :show, :create]
+    get '/meal_name/:id', to: 'meals#show_name'
+    get '/meal_user_name/:id', to: 'meals#show_name_of_user_and_meal'
+
+  end
 
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
