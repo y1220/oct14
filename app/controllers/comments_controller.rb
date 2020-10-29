@@ -65,7 +65,7 @@ class CommentsController < ApplicationController
         @comment.message = params[:message]
         if @comment.save
           flash[:notice]= "Modified successfully!"
-          redirect_to("/meals/index")
+          redirect_to("/meals")
         else
           show_error("Save function went wrong..try again!","comments/#{@comment.id}/edit")
         end
@@ -81,7 +81,7 @@ class CommentsController < ApplicationController
     @comment = Comment.find_by(id: params[:id])
     flash[:notice]= "Deleted successfully!"
     @comment.destroy
-    redirect_to("/meals/index")
+    redirect_to("/meals")
   end
 
   private  ## has to be the bottom of the page not to let other method as private one

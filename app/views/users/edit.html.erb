@@ -8,7 +8,7 @@
             <%= message %>
           </div>
         <% end %>
-        <%= form_tag("/users/#{@user.id}/update") do%>
+        <%= form_tag("/users/#{@user.id}") do%>
           <p>user name</p>
           <input name="user_name" value="<%=@user.name%>" required="true">
           <p>email</p>

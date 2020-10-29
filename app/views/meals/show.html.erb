@@ -28,7 +28,7 @@
                 <%= link_to("reply","/comments/#{comment.id}/reply")%>
                 <% if comment.commenter == @current_user.id %>
                   <%= link_to("modify", "/comments/#{comment.id}/edit") %>
-                  <%= link_to("delete", "/comments/#{comment.id}/destroy",{method:"post"}) %>
+                  <%= link_to("delete", "/comments/#{comment.id}",{method:"post"}) %>
                 <%end%>
               </div>
             </div>

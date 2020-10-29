@@ -100,7 +100,7 @@ class UsersController < ApplicationController
       if @user.authenticate(params[:password])
         session[:user_id] = @user.id
         flash[:notice]= "Loggined successfully!"
-        redirect_to("/meals/index")
+        redirect_to("/meals")
       else
         flash[:notice]= "Something went wrong..try again!"
         render("users/login_form")
@@ -120,7 +120,7 @@ class UsersController < ApplicationController
   def ensure_correct_user
     if  @current_user.id != params[:id].to_i
       flash[:notice]= "You don't have a right to modify this page"
-      redirect_to("/meals/index")
+      redirect_to("/meals")
     end
   end
 

@@ -1,5 +1,7 @@
 class ApplicationController < ActionController::Base
 
+
+
   # declare the action which is needed by all the other actions
   before_action :set_current_user
 
@@ -16,7 +18,7 @@ class ApplicationController < ActionController::Base
   def forbid_login_user
     # already loginned
     if @current_user
-      redirect_to("/meals/index")
+      redirect_to("/meals")
     end
   end
 

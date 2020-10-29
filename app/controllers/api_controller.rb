@@ -11,5 +11,4 @@ class ApiController < ApplicationController
     render json: { meals_counter: Meal.count }
   end
 
-
 end

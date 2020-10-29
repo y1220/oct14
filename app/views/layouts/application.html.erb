@@ -11,7 +11,7 @@
     <header>
       <div class="header-logo">
         <% if @current_user %>
-          <%= link_to("Happy recipe", "/meals/index") %>
+          <%= link_to("Happy recipe", "/meals") %>
         <% else %>
           <%= link_to("Happy recipe", "/") %>
         <% end %>
@@ -25,7 +25,7 @@
             <%= link_to(current_user.name,"/users/#{current_user.id}") %>
           </li>
           <li>
-            <%= link_to("Meals","/meals/index")%>
+            <%= link_to("Meals","/meals")%>
           </li>
           <li>
             <%= link_to("New meal","/meals/new")%>
@@ -34,7 +34,7 @@
             <%= link_to("Search meals","/meals/search")%>
           </li>
           <li>
-            <%= link_to("All users","/users/index")%>
+            <%= link_to("All users","/users")%>
           </li>
           <li>
             <%= link_to("Logout", "/logout", {method: :post})%>
@@ -44,7 +44,7 @@
             <%= link_to("About us","/about")%>
           </li>
           <li>
-            <%= link_to("Sign up","/signup")%>
+            <%= link_to("Sign up","/users/new")%>
           </li>
           <li>
             <%= link_to("Login","/login")%>

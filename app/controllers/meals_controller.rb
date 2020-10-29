@@ -10,6 +10,7 @@ class MealsController < ApplicationController
 
   #before_action :search, {only: [:result]}
 
+
   def index
     @meals = Meal.all.order(created_at: :desc)
   end
@@ -63,7 +64,8 @@ class MealsController < ApplicationController
         #File.binwrite("public/meal_images/#{@meal.image}",image_pic.read)
       end
       flash[:notice]= "New meal created successfully!#{allowed_params["image"].present?}"
-      redirect_to("/meals/index")
+      redirect_to("/meals")
+      #render("/meals/index")
     else
       show_error("Inserted id doesn't exist..try again!","meals/new")
     end
@@ -228,14 +230,14 @@ class MealsController < ApplicationController
     @meal.destroy
     #File.delete(Rails.root + "public/collections_image/meal/#{@meal.image}")
     flash[:notice]= "Deleted successfully!"
-    redirect_to("/meals/index")
+    redirect_to("/meals")
   end
 
   def ensure_correct_user
     @meal= Meal.find_by(id: params[:id])
     if @meal.user_id != @current_user.id
       flash[:notice]= "You don't have a right to modify this page"
-      redirect_to("/meals/index")
+      redirect_to("/meals")
     end
   end
 

@@ -7,7 +7,7 @@
       <p><%= "recipe: #{@comment.meal.content}"%></p>
     </div>
     <h1 class="form-heading">Modify the comment message</h1>
-    <%= form_tag("/comments/#{@comment.id}/update") do %>
+    <%= form_tag("/comments/#{@comment.id}") do %>
       <div class="form">
         <div class="form-body">
           <% @comment.errors.full_messages.each do |message| %>

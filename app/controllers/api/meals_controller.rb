@@ -3,12 +3,19 @@ module Api
 
 
     # require 'json' => true
+    #allow the post from the outside
     protect_from_forgery
 
 
+    #def index
+    #@meals = Meal.all.order(created_at: :desc)
+    #render json: @meals
+    #end
+
     def index
-      @meals = Meal.all.order(created_at: :desc)
-      render json: @meals
+      meals = Meal.all
+      render 'index' , locals: { meals: meals }#, formats: 'json', handlers: 'jbuilder'
+
     end
 
     def show
@@ -47,13 +54,58 @@ module Api
       render json: @meal.serializable_hash(only: :title)
     end
 
+    def show_comments_serialize
+      @meal = Meal.find_by(id: params[:id])
+      render json: @meal.serializable_hash(only: :title)
+    end
 
-    #private
+    def except_c_u
+      @meal = Meal.find_by(id: params[:id])
+      #@meal = Meal.all
+      render json: @meal.serializable_hash(except: [:created_at,:updated_at])
+    end
+
+
+    def do_capitalized_title
+      @meal = Meal.find_by(id: params[:id])
+      render json: @meal.serializable_hash(methods: :capitalized_title)
+      #render plain: "OK!"
+      # render  xml: @meal.serializable_hash(methods: :capitalized_title)
+
+    end
+
+    def with_comments
+      @meal = Meal.find_by(id: params[:id])
+      #@comments = @meal.comments
+      #render json: @comments
+      render json: @meal.serializable_hash(methods: :show_comments)
+    end
+
+
+    #added method
+
+
+
+
+
+
+    # def except_c_u_all
+    #@meal = Meal.find_by(id: params[:id])
+    #@meals = Meal.all.map{|meal|
+    #meal.serializable_hash(except: [:created_at,:updated_at])
+    #}
+    #render json: @meals
+    #}
+    #end
+
+    private
 
     def allowed_params
       params.require(:meal).
         permit(:title, :content, :meal_type, :user_id)
     end
+
+
 
   end
 end

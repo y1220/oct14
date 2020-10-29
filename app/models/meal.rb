@@ -1,5 +1,8 @@
 class Meal < ApplicationRecord
 
+  #include ActiveModel::Serialization
+  #include ActiveModel::Serializers::JSON
+
   mount_uploader :image, FileUploader
   serialize :image, JSON # If you use SQLite, add this line.
   validates :content, {presence: true, length: {maximum: 100}}
@@ -7,8 +10,14 @@ class Meal < ApplicationRecord
   validates :title, {presence: true}
   validates :meal_type, {presence: true}
   validates_integrity_of :image
+
+  belongs_to :user
+
+
+  has_many :comments, dependent: :destroy
   #validates :image, file_size: { less_than: 500.kilobytes }
   #validate :file_size
+  #attr_accessor :title
 
 
   #validates_size_of :picture, maximum: 500.kilobytes, message: "should be less than 500KB"
@@ -21,10 +30,19 @@ class Meal < ApplicationRecord
   # }
 
   #belongs_to :users, :foreign_key => "user_id"
-  belongs_to :user
 
 
-  has_many :comments, dependent: :destroy
+  def capitalized_title
+    #return  self.title.capitalize
+    return title.capitalize
+  end
+
+
+
+  def show_comments
+
+    return comments
+  end
   #def user
   #return User.find_by(id: self.user_id)
   #end
