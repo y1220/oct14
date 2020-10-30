@@ -109,7 +109,7 @@ class MealsController < ApplicationController
 
   def search
     # @@s_meals ||=nil
-
+    # @@all_meals = Meal.all
   end
 
   #$ ids = ||
@@ -141,10 +141,15 @@ class MealsController < ApplicationController
 
     t_keywords = params[:t_keyword].split
     c_keywords = params[:c_keyword].split
-    all_meals = Meal.all
+    #byebug
+    #all_meals= Meal.all
+
     t_h = {}
     c_h = {}
-    all_meals.each do |meal|
+    # all_meals.each do |meal|
+
+    Meal.all.each do |meal|
+
       t_count=0
       t_keywords.each do |keyword|
         if meal.title.downcase.include?(keyword.downcase)

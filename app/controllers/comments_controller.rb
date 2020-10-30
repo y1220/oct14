@@ -1,7 +1,7 @@
 class CommentsController < ApplicationController
 
 
-  before_action :ensure_correct_user,{only: [:edit, :update, :destroy]}
+  #before_action :ensure_correct_user,{only: [:edit, :update, :destroy]}
 
   def new
     @meal = Meal.find_by(id: params[:id])
@@ -83,6 +83,8 @@ class CommentsController < ApplicationController
     @comment.destroy
     redirect_to("/meals")
   end
+
+
 
   private  ## has to be the bottom of the page not to let other method as private one
   def show_error (error_message, return_to_address)

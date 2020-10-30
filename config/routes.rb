@@ -9,19 +9,45 @@ Rails.application.routes.draw do
   #PATCH/PUT   /photos/:id   photos#update   update a specific photo
   #DELETE  /photos/:id   photos#destroy  delete a specific photo  get "meals/search" => "meals#search"
 
-  resources :users
-  resources :meals
 
+
+
+
+  #  get "meals/result" => "meals#result"
+
+
+  # get "meals/search" => "meals#search"
+  #  post "meals/create_s" => "meals#create_s"
+
+
+
+
+  resources :users
+  #resources :meals
+
+  resources :meals do
+
+    #member do
+
+    #  end
+    collection do
+
+      get :search
+      post :create_s
+      get :result
+
+    end
+
+  end
 
   namespace :comments do
     get "/:id/reply" ,action: "reply"
     post "/:id/create_r" ,action: "create_r"
     get "/:id/edit" ,action:  "edit"
     post "/:id/update" ,action:  "update"
+    post "/:id" ,action: "destroy"
   end
 
-  post "meals/create_s" => "meals#create_s"
-  get "meals/result" => "meals#result"
 
 
 
@@ -65,7 +91,7 @@ Rails.application.routes.draw do
   #post "users/create_postman" => "users#create_postman"
 
 
-  post "comments/:id/destroy" => "comments#destroy"
+
   # post "meals/:id/destroy" => "meals#destroy"
   #post "users/:id/destroy" => "users#destroy"
 

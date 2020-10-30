@@ -17,7 +17,7 @@
       <div class="meal-menus">
         <% if @meal.user_id == @current_user.id %>
           <%= link_to("modify", "/meals/#{@meal.id}/edit") %>
-          <%= link_to("delete", "/meals/#{@meal.id}/destroy",{method:"post"}) %>
+          <%= link_to("delete", "/meals/#{@meal.id}",{method:"post"}) %>
         <%end%>
         <% @meal.comments.each do |comment|%>
           <% if comment.comment_id.blank? %>
