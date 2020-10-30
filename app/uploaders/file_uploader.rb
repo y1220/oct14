@@ -48,7 +48,7 @@ class FileUploader < CarrierWave::Uploader::Base
   end
 
   def size_range
-    0..600.kilobytes
+    0..5.megabytes
   end
 
   #necessary??

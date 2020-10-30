@@ -14,5 +14,9 @@ class User < ApplicationRecord
   #def meals
   #return Meal.where(user_id: self.id)
   #end
+  def add(x, y)
+    return x + y
+  end
+
 
 end
