@@ -14,4 +14,16 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to meals_path
   end
 
+  test "routes check" do
+    assert_routing({ method: 'get', path: 'users/new' }, controller: 'users', action: 'new')
+    assert_routing({ method: 'post', path: 'users' }, controller: 'users', action: 'create')
+    assert_routing({ method: 'get', path: 'meals/search' }, controller: 'meals', action: 'search')
+    assert_routing({ method: 'patch', path: 'meals/1' }, controller: 'meals', action: 'update', id: '1')
+  end
+
+  test "recognize" do
+    #assert_recognizes({controller: 'users', action: 'update', id: '1', view: 'users/1' },
+    assert_recognizes({controller: 'users', action: 'update', id: '1' },
+                      {path: 'users/1', method: :put, view: 'users/1' })
+  end
 end
