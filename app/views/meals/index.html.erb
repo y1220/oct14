@@ -3,9 +3,9 @@
     <h1 class="users-heading">all meals</h1>
     <% @meals.each do |meal|%>
       <div class="meals-index-item">
-        <%= link_to(meal.title,"/meals/#{meal.id}")%>
+        <%#= link_to(meal.title,"/meals/#{meal.id}")%>
         <div class="meal-user-name">
-          <%= link_to(meal.user.name,"/users/#{meal.user.id}")%>
+          <%#= link_to(meal.user.name,"/users/#{meal.user.id}")%>
         </div>
       </div>
     <% end%>
