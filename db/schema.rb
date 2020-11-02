@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_26_095254) do
+ActiveRecord::Schema.define(version: 2020_11_02_144325) do
 
   create_table "comments", force: :cascade do |t|
-    t.integer "meal_id"
-    t.text "message"
+    t.integer "meal_id", null: false
+    t.text "message", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "commenter"
+    t.integer "commenter", null: false
     t.integer "comment_id"
     t.index ["comment_id"], name: "index_comments_on_comment_id"
     t.index ["commenter"], name: "index_comments_on_commenter"
@@ -25,28 +25,28 @@ ActiveRecord::Schema.define(version: 2020_10_26_095254) do
   end
 
   create_table "meal_types", force: :cascade do |t|
-    t.string "description"
+    t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "meals", force: :cascade do |t|
-    t.text "title"
+    t.text "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "content"
-    t.integer "meal_type"
-    t.integer "user_id"
+    t.string "content", null: false
+    t.integer "meal_type", null: false
+    t.integer "user_id", null: false
     t.string "image"
     t.index ["user_id"], name: "index_meals_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
+    t.string "name", null: false
+    t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "password_digest"
+    t.string "password_digest", null: false
   end
 
 end

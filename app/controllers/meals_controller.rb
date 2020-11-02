@@ -4,6 +4,8 @@ require  "byebug"
 require 'carrierwave/orm/activerecord'
 class MealsController < ApplicationController
 
+  #include ActionView::Helpers::UrlHelper
+
 
   before_action :authenticate_user
   before_action :ensure_correct_user,{only: [:edit, :update,:edit_image, :update_image, :destroy]}

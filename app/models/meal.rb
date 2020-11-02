@@ -1,5 +1,6 @@
 class Meal < ApplicationRecord
 
+
   #include ActiveModel::Serialization
   #include ActiveModel::Serializers::JSON
 
@@ -12,7 +13,6 @@ class Meal < ApplicationRecord
   validates_integrity_of :image
 
   belongs_to :user
-
 
   has_many :comments, dependent: :destroy
   #validates :image, file_size: { less_than: 500.kilobytes }

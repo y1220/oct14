@@ -13,7 +13,9 @@
 # it.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+
 require 'capybara/rspec'
+#include ActionView::Helpers::UrlHelper
 RSpec.configure do |config|
   config.before(:each, type: :system) do
     #driver = webdriver.Chrome('/path/to/chromedriver')
