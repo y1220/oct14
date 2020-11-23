@@ -44,6 +44,7 @@ class UsersController < ApplicationController
         if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
           if @user.save
             #TaskMailer.creation_email(@user).deliver_now
+            
             UserMailer.with(user: @user).welcome_email.deliver_now
  
             session[:user_id]=@user.id
