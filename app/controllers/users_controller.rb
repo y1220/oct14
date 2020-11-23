@@ -35,14 +35,17 @@ class UsersController < ApplicationController
   end
 
   def create
-    @user = User.new # Needed for printing error messages
+   @user = User.new # Needed for printing error messages
+   #respond_to do |format|
     if params[:user_name].present? && params[:email].present? && params[:user_password].present?
       #@user = User.new(name: params[:user_name], email: params[:email], password: params[:user_password])
       @user.assign_attributes(name: params[:user_name], email: params[:email], password: params[:user_password])
       if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
         if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
           if @user.save
-            TaskMailer.creation_email(@user).deliver_now
+            #TaskMailer.creation_email(@user).deliver_now
+            UserMailer.with(user: @user).welcome_email.deliver_now
+ 
             session[:user_id]=@user.id
             flash[:notice]= "Thank you for the registration!"
             redirect_to("/users/#{@user.id}")
@@ -58,6 +61,7 @@ class UsersController < ApplicationController
     else
       show_error("Reading the insertions went wrong..try again!!!!","users/new")
     end
+   #end
   end
 
   def edit
