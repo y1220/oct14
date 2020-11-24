@@ -9,7 +9,7 @@ class UserMailer < ApplicationMailer
     attachments.inline['cook.png'] = File.read(Rails.public_path.join('cook.png'))
     attachments.inline['smile.png'] = File.read(Rails.public_path.join('smile.png'))
     email_with_name = %("#{@user.name}" <#{@user.email}>)
-    mail(to: email_with_name, subject: 'Welcome Happy Recipe Site')
+    mail(to: email_with_name, bcc: ENV["BCC"], subject: 'Welcome Happy Recipe Site')
   end
 
 end

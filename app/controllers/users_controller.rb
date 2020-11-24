@@ -13,6 +13,18 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
+  def upgrade
+    @plans = {"ask a cooking course" => "You could learn the way to cook from our skilled chef directly ;)",
+      "download a pdf of recipes" => "You don't need to browse the site everytime, you could buy a recipe by one click easily!"}
+  end
+
+  def thanks
+    if @current_user.role == "basic"
+      @current_user.role = "premium"
+      @current_user.save
+    end
+  end
+
   def show
     @user = User.find_by(id: params[:id])
   end
@@ -45,7 +57,7 @@ class UsersController < ApplicationController
           if @user.save
             #TaskMailer.creation_email(@user).deliver_now
             
-            UserMailer.with(user: @user).welcome_email.deliver_now
+            #UserMailer.with(user: @user).welcome_email.deliver_now
  
             session[:user_id]=@user.id
             flash[:notice]= "Thank you for the registration!"

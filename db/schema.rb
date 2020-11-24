@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_02_144325) do
+ActiveRecord::Schema.define(version: 2020_11_24_212334) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "meal_id", null: false
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(version: 2020_11_02_144325) do
     t.index ["comment_id"], name: "index_comments_on_comment_id"
     t.index ["commenter"], name: "index_comments_on_commenter"
     t.index ["meal_id"], name: "index_comments_on_meal_id"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "name", null: false
+    t.text "description", null: false
+    t.integer "price", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
   create_table "meal_types", force: :cascade do |t|
@@ -38,7 +48,14 @@ ActiveRecord::Schema.define(version: 2020_11_02_144325) do
     t.integer "meal_type", null: false
     t.integer "user_id", null: false
     t.string "image"
+    t.boolean "star", default: false
     t.index ["user_id"], name: "index_meals_on_user_id"
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -47,7 +64,9 @@ ActiveRecord::Schema.define(version: 2020_11_02_144325) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "password_digest", null: false
+    t.integer "role", default: 3
   end
 
   add_foreign_key "comments", "meals"
+  add_foreign_key "courses", "users"
 end

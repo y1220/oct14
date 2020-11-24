@@ -1,5 +1,5 @@
-class EmailDeliveryObserver
-    def self.delivered_email(message)
-      EmailDelivery.log(message)
-    end
-  end
+#class EmailDeliveryObserver
+#    def self.delivered_email(message)
+#      EmailDelivery.log(message)
+#    end
+#  end

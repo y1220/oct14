@@ -1,0 +1,16 @@
+<div class="main meals-index">
+  <div class="container">
+    <h1 class="users-heading">all courses</h1>
+    <% @courses.each do |course|%>
+      <div class="meals-index-item">
+        <%#= link_to(course.name,"/courses/new")%>
+        <%=link_to(course.name, "/users/#{@current_user.id}/thanks") %>
+        <div class="meal-user-name">
+          <%= link_to(course.user.name,"/users/#{course.user_id}")%>
+          <%#= meal.title %>
+          <%#= meal.user.name %>
+        </div>
+      </div>
+    <% end%>
+  </div>
+</div>

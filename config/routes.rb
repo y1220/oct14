@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  get 'courses/index'
   #  resources :photos
   #GET   /photos   photos#index  display a list of all photos
   #GET   /photos/new   photos#new  return an HTML form for creating a new photo
@@ -22,7 +23,22 @@ Rails.application.routes.draw do
 
 
 
-  resources :users
+  resources :users do
+
+    collection do
+
+      get :upgrade
+      #get :thanks
+
+    end
+
+    member do
+
+      get :thanks
+
+    end
+
+  end
   #resources :meals
 
   resources :meals do
@@ -37,6 +53,11 @@ Rails.application.routes.draw do
       get :result
 
     end
+
+  end
+
+  resources :courses do
+
 
   end
 

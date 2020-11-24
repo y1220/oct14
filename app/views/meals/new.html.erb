@@ -17,6 +17,11 @@
           <%= f.select(:meal_type, @descriptions, {}, { :class => 'choose_the_meal_type' }) %>
           <p>image(optional: choose image file(jpg, jpeg, png))</p>
           <%= f.file_field :image, accept: 'image/*'%>
+          <% if @current_user.role == "premium"%>
+            <p>premium</p>
+            <%#= f.select :star, options_for_select([['premium', true], ['free', false]]) %>
+            <%= f.select :star, {'premium': true, 'free': false}, {  required: true } %>
+          <% end %>
           <p></p>
           <%= f.submit%>
         <%end%>

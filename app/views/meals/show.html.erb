@@ -16,9 +16,12 @@
       </div>
       <div class="meal-menus">
         <% if @meal.user_id == @current_user.id %>
-          <%= link_to("modify", "/meals/#{@meal.id}/edit") %>
-          <%= link_to("delete", "/meals/#{@meal.id}",{method:"post"}) %>
+          <%= link_to("modify post", "/meals/#{@meal.id}/edit") %>
+          <%= link_to("delete post", "/meals/#{@meal.id}",{method:"post"}) %>
         <%end%>
+        <% if @current_user.role == "premium" && @meal.star == true%>
+          <%= link_to("generate a pdf","/users/#{@current_user.id}/thanks")%>
+        <% end %>
         <% @meal.comments.each do |comment|%>
           <% if comment.comment_id.blank? %>
             <div class="meals-index-item">
@@ -27,8 +30,8 @@
               <div class="reply">
                 <%= link_to("reply","/comments/#{comment.id}/reply")%>
                 <% if comment.commenter == @current_user.id %>
-                  <%= link_to("modify", "/comments/#{comment.id}/edit") %>
-                  <%= link_to("delete", "/comments/#{comment.id}",{method:"post"}) %>
+                  <%= link_to("modify comment", "/comments/#{comment.id}/edit") %>
+                  <%= link_to("delete comment", "/comments/#{comment.id}",{method:"post"}) %>
                 <%end%>
               </div>
             </div>

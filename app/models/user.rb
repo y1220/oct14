@@ -9,12 +9,16 @@ class User < ApplicationRecord
   has_many :meals, dependent: :destroy
   has_many :comments, through: :meals, dependent: :destroy
   has_many :comments,  :foreign_key => "commenter", dependent: :destroy
+  has_many :courses, dependent: :destroy
   #has_many :commenters, through: :comments, dependent: :destroy
   #-> {includes :comments}
 
   #def meals
   #return Meal.where(user_id: self.id)
   #end
+
+  enum role: { admin: 1, premium: 2, basic: 3 }
+
   def add(x, y)
     return x + y
   end

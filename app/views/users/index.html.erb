@@ -7,6 +7,11 @@
           <!--<%= user.name%>-->
           <%= link_to(user.name,"/users/#{user.id}")%>
         </div>
+        <div class= "king">
+          <% if user.role == "premium" %>
+            <span class="fa fa-star"></span>
+          <% end %>
+        </div>
       </div>
     <%end%>
   </div>

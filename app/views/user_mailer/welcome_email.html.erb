@@ -3,16 +3,17 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag 'application' %>
   </head>
   <body>
     <div style="text-align: center">
-      <h1>Welcome to example.com,
+      <h1>Welcome to Recipe.com,
         <%= @user.name %>
       </h1>
       <center>
         <%= image_tag attachments['cook.png'].url, width: '320', height: '64' %>
       </center>
-      <p style="font-family:verdana">
+      <p class= "email_text">
         You have successfully signed up to Recipe.com,
         your username is:
         <%= @user.name %>.<br>
@@ -22,11 +23,11 @@
         <%= @url %>.
       </p>
       <p>Thanks for joining and have a great day!</p>
-      <% cache do %>
-        <%= User.find_by(id: 1).name %>
-      <% end %>
-      <span class="fa fa-heart"></span>
-      <%= image_tag attachments['smile.png'].url, width: '32', height: '32' %>
-    </div>
-  </body>
-</html>
+      <%# cache do %>
+        <%#= User.find_by(id: 1).name %>
+        <%# end %>
+        <span class="fa fa-heart"></span>
+        <%= image_tag attachments['smile.png'].url, width: '32', height: '32' %>
+      </div>
+    </body>
+  </html>

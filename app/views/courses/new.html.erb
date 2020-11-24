@@ -1,0 +1,24 @@
+<div class="main meals-new">
+  <div class="container">
+    <h1 class="users-heading">New course</h1>
+    <div class="form">
+      <div class="form-body">
+        <% @course.errors.full_messages.each do |message| %>
+          <div class="form-error">
+            <%= message %>
+          </div>
+        <% end %>
+        <%= form_for @course,:url => {controller: "courses", action: "create"}, multipart: true do |f| %>
+          <p>name</p>
+          <%= f.text_field :name%>
+          <p>description</p>
+          <%= f.text_area :description%>
+          <p>price</p>
+          <%= f.text_field :price%>
+          <p></p>
+          <%= f.submit%>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

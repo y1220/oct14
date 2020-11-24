@@ -34,17 +34,28 @@ class MealsController < ApplicationController
   end
 
   def create
+    #ActionController::Parameters.permit_all_parameters = true
     @meal = Meal.new
     @mealTypes = MealType.all
     @descriptions=@mealTypes.map{|x| x.description}
+    #@booleans= ["true","false"]
 
 
     @meal.title=allowed_params["title"]
     @meal.content=allowed_params["content"]
     @mealType = MealType.find_by(description: allowed_params["meal_type"])
     @meal.meal_type=@mealType.id
+    if @current_user.role == "premium"
+      @meal.star= allowed_params["star"]
+    end
     @meal.user_id= @current_user.id
+    byebug
+    
     image_from_params = params[:meal][:image]
+    #ActionController::Parameters.permit_all_parameters = true
+   
+    
+   
 
 
     if @meal.save
@@ -65,7 +76,7 @@ class MealsController < ApplicationController
         #File.binwrite("public/meal_images/1.jpg",image_pic.read)
         #File.binwrite("public/meal_images/#{@meal.image}",image_pic.read)
       end
-      flash[:notice]= "New meal created successfully!#{allowed_params["image"].present?}"
+      flash[:notice]= "New meal created successfully!#{allowed_params["star"]}"
       redirect_to("/meals")
       #render("/meals/index")
     else
@@ -261,7 +272,7 @@ class MealsController < ApplicationController
 
   def allowed_params
     params.require(:meal).
-      permit(:title, :content, :meal_type)
+      permit(:title, :content, :meal_type, :star)
   end
 
 

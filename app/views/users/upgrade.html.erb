@@ -1,0 +1,23 @@
+<div class="main users-index">
+  <div class="container">
+    <h1 class="users-heading">Upgrade</h1>
+    <h2>Thanks for your interest for upgrading! If you become a premiun member
+      you can do the things below... :)
+    </h2>
+    <% @plans.keys.each do |plan|%>
+      <div class="users-index-item">
+        <div class="user-right">
+          <h4><%="#{plan}"%></h4>
+          <%=@plans["#{plan}"]%>
+        </div>
+      </div>
+    <%end%>
+    <div class="join-text">
+      <h1>click the below to upgrade!</h1>
+    </div>
+    <center>
+      <%#=link_to image_tag("/join.png", width: 200, height: 75,), {action: 'thanks', controller: 'users'}, :class => "join-img" %>
+      <%=link_to image_tag("/join.png", width: 200, height: 75,), "/users/#{@current_user.id}/thanks", :class => "join-img" %>
+    </center>
+  </div>
+</div>

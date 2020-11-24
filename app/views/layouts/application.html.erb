@@ -23,8 +23,21 @@
           <li>
             <!--user_id:
             <%=session[:user_id]%>-->
-            <%= link_to(current_user.name,"/users/#{current_user.id}") %>
+            <%# role= Role.find_by(id: current_user.role)%>
+            <%= link_to(current_user.name+" ( #{current_user.role} )","/users/#{current_user.id}") %>
           </li>
+          <% if current_user.role == "basic"%>
+            <li>
+              <%= link_to("Upgrade","/users/upgrade")%>
+            </li>
+          <% elsif  current_user.role == "premium"%>
+            <li>
+              <%= link_to("Create a course","/courses/new")%>
+            </li>
+            <li>
+              <%= link_to("Participate a course","/courses")%>
+            </li>
+          <% end %>
           <li>
             <%= link_to("Meals","/meals")%>
           </li>

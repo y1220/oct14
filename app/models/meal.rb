@@ -15,6 +15,8 @@ class Meal < ApplicationRecord
   belongs_to :user
 
   has_many :comments, dependent: :destroy
+
+  #enum star: {  free: false,  pre: true }
   #validates :image, file_size: { less_than: 500.kilobytes }
   #validate :file_size
   #attr_accessor :title
