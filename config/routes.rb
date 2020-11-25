@@ -83,6 +83,7 @@ Rails.application.routes.draw do
 
   namespace :export do
     get "/:id/show.pdf" , action: "show"    
+    get "/:id/receipt.pdf" , action: "receipt"  
   end
 
   #get '/admin/index' => 'admin#index'

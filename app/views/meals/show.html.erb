@@ -21,6 +21,7 @@
         <%end%>
         <% if @current_user.role == "premium" && @meal.star == true%>
           <%#= link_to("generate a pdf","/users/#{@current_user.id}/thanks")%>
+          <%#= link_to("generate a pdf","/export/#{@meal.id}/receipt.pdf")%>
           <%= link_to("generate a pdf","/export/#{@meal.id}/show.pdf")%>
         <% end %>
         <% @meal.comments.each do |comment|%>
