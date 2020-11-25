@@ -1,0 +1,26 @@
+<div class="main meals-show">
+  <div class="container">
+    <div class="meals-show-item">
+      <!-- <p>recipe</p>  -->
+      <!-- <%= "recipe of id: #{@id}"%> -->
+      <!--<%= @user.name%> -->
+      <div class="meal-info">
+        <p><%= "chef"%>
+          <%= link_to(@user.name, "/users/#{@user.id}")%></p>
+        <p><%= "course name: #{@course.name}"%></p>
+        <p><%= "description: #{@course.description}"%></p>
+        <p><%= "price: #{@course.price}"%></p>
+      </div>
+      <div class="meal-menus">
+        <% if @course.user_id == @current_user.id %>
+          <%= link_to("modify course", "/courses/#{@course.id}/edit") %>
+          <%= link_to("delete course", "/courses/#{@course.id}",{method:"post"}) %>
+        <% else%>
+          <%if Participant.find_by(user_id: @current_user.id, course_id: @course.id).nil?%>
+            <%= link_to("join this course", "/courses/#{@course.id}/thanks") %>
+          <% end %>
+        <%end%>
+      </div>
+    </div>
+  </div>
+</div>

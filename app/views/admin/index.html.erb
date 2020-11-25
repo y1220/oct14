@@ -1,0 +1,22 @@
+<div class="main users-index">
+  <div class="container">
+    <h1 class="users-heading">all participants</h1>
+    <% sum =0%>
+    <% @participants.each do |participant|%>
+      <div class="users-index-item">
+        <div class="user-right">
+          <%= "name"%>
+          <%= link_to(participant.user.name,"/users/#{participant.user_id}")%>
+          <div class= "admin-index">
+            <% sum += participant.course.price%>
+            <%= "course"%>
+            <%=link_to(participant.course.name+"(#{participant.course.price} euro)", "/courses/#{participant.course.id}") %>
+          </div>
+        </div>
+      </div>
+    <%end%>
+    <div class="king">
+      <h3>sum: <%="#{sum}"%></h3>
+    </div>
+  </div>
+</div>

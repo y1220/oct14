@@ -3,4 +3,5 @@ class Course < ApplicationRecord
   validates :description, {presence: true}
   validates :price, {presence: true}
   belongs_to :user
+  has_many :participants, dependent: :destroy
 end

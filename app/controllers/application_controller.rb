@@ -22,5 +22,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_premium
+    if @current_user.role == "basic"
+      redirect_to("/users/upgrade")
+    end
+  end
+
 
 end

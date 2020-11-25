@@ -58,6 +58,11 @@ Rails.application.routes.draw do
 
   resources :courses do
 
+    member do
+
+      get :thanks
+
+    end
 
   end
 
@@ -69,6 +74,18 @@ Rails.application.routes.draw do
     post "/:id" ,action: "destroy"
   end
 
+
+
+  
+  namespace :admin do
+    get "/index" , action: "index"    
+  end
+
+  namespace :export do
+    get "/:id/show.pdf" , action: "show"    
+  end
+
+  #get '/admin/index' => 'admin#index'
 
 
 

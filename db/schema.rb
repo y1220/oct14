@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_24_212334) do
+ActiveRecord::Schema.define(version: 2020_11_25_091325) do
 
   create_table "comments", force: :cascade do |t|
     t.integer "meal_id", null: false
@@ -52,6 +52,16 @@ ActiveRecord::Schema.define(version: 2020_11_24_212334) do
     t.index ["user_id"], name: "index_meals_on_user_id"
   end
 
+  create_table "participants", force: :cascade do |t|
+    t.integer "course_id", null: false
+    t.integer "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["course_id"], name: "index_participants_on_course_id"
+    t.index ["user_id", "course_id"], name: "index_participants_on_user_id_and_course_id", unique: true
+    t.index ["user_id"], name: "index_participants_on_user_id"
+  end
+
   create_table "roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
@@ -69,4 +79,6 @@ ActiveRecord::Schema.define(version: 2020_11_24_212334) do
 
   add_foreign_key "comments", "meals"
   add_foreign_key "courses", "users"
+  add_foreign_key "participants", "courses"
+  add_foreign_key "participants", "users"
 end

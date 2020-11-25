@@ -49,7 +49,7 @@ class MealsController < ApplicationController
       @meal.star= allowed_params["star"]
     end
     @meal.user_id= @current_user.id
-    byebug
+    
     
     image_from_params = params[:meal][:image]
     #ActionController::Parameters.permit_all_parameters = true

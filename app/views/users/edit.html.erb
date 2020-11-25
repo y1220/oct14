@@ -8,16 +8,17 @@
             <%= message %>
           </div>
         <% end %>
-        <%= form_tag("/users/#{@user.id}") do%>
-          <p>user name</p>
-          <input name="user_name" value="<%=@user.name%>" required="true">
-          <p>email</p>
-          <input placeholder="has to include @ and ."  name="email" value="<%=@user.email%>" required="true">
-          <p>password</p>
-          <input placeholder="4-8 numbers or characters" name="password" value="<%=@user.password%>" type="password" required="true">
-          <input type="submit" value="save">
-        <%end%>
+        <%= form_tag({controller: "users", action: "update"}, method: :put) do%>
+          <%#= form_tag("/users/#{@user.id}") do%>
+            <p>user name</p>
+            <input name="user_name" value="<%=@user.name%>" required="true">
+            <p>email</p>
+            <input placeholder="has to include @ and ."  name="email" value="<%=@user.email%>" required="true">
+            <p>password</p>
+            <input placeholder="4-8 numbers or characters" name="password" value="<%=@user.password%>" type="password" required="true">
+            <input type="submit" value="save">
+          <%end%>
+        </div>
       </div>
     </div>
   </div>
-</div>
