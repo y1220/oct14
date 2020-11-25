@@ -1,5 +1,9 @@
+require 'carrierwave/orm/activerecord'
+require 'mimemagic'
+
 class ExportPdf
     include Prawn::View
+    
   
     def initialize
       font_setup
@@ -8,7 +12,7 @@ class ExportPdf
 
     def font_setup
       font_families.update("Nerko_one" => {
-        #:normal => "vendor/assets/fonts/NerkoOne-Regular.ttf"
+        :nerko => "vendor/assets/fonts/NerkoOne-Regular.ttf",
         #:normal => "vendor/assets/fonts/Play-Bold.ttf"
         :normal => "vendor/assets/fonts/Play-Regular.ttf"
       })
@@ -21,7 +25,7 @@ class ExportPdf
     end
   
     def content
-      text "printed at: "+ Time.new.strftime("%Y-%m-%d %H:%M:%S")
+      text "printed at: "+ Time.new.strftime("%Y-%m-%d %H:%M:%S"), :align => :right
       text "\n"
     end
 end
