@@ -60,7 +60,6 @@ class AdminController < ApplicationController
     end
 
     def allowed_params
-      
       params.require(:request).
         permit('pdfs[]',:title)
     end

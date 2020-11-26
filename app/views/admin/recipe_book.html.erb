@@ -5,14 +5,14 @@
     </h2>
     <h4 class="users-heading">all pdfs</h4>
     <%= form_for @request,:url => {controller: "admin", action: "create_book"}, multipart: true do |f| %>
-      <% @meals.each do |meal| %>
-        <%= f.check_box(:pdfs ,   { :multiple => true }) %>
-        <%= f.label 'pdfs[]', meal.title %>
+      <% for meal in @meals %>
+        <%= check_box_tag "request[pdfs][]", meal.id, false, :id => meal.id %>
+        <%= meal.title %>
       <% end %>
       <p>title</p>
       <%= f.text_field :title%>
       <p></p>
       <%= f.submit%>
-    <% end %>
+    <%end%>
   </div>
 </div>

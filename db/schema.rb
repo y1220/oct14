@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_26_212422) do
+ActiveRecord::Schema.define(version: 2020_11_26_230713) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_212422) do
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.text "pdfs", default: "--- []\n"
+    t.integer "pdfs"
   end
 
   create_table "roles", force: :cascade do |t|
