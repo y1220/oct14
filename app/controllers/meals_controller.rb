@@ -111,9 +111,10 @@ class MealsController < ApplicationController
         @meal.image.store!(image_from_params)
         @meal.save!
       end
-      flash[:notice]= "New meal created successfully!#{allowed_params["image"].present?}"
+      flash[:notice]= "New meal created successfully!"
       redirect_to("/meals/index")
     else
+      @meal = Meal.find_by(id: params[:id])
       show_error("Inserted id doesn't exist..try again!","meals/#{params[:id]}/edit")
     end
   end

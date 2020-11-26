@@ -10,7 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_25_091325) do
+ActiveRecord::Schema.define(version: 2020_11_26_212422) do
+
+  create_table "books", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "comments", force: :cascade do |t|
     t.integer "meal_id", null: false
@@ -34,6 +40,15 @@ ActiveRecord::Schema.define(version: 2020_11_25_091325) do
     t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
+  create_table "meal_books", force: :cascade do |t|
+    t.integer "meal_id", null: false
+    t.integer "book_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["book_id"], name: "index_meal_books_on_book_id"
+    t.index ["meal_id"], name: "index_meal_books_on_meal_id"
+  end
+
   create_table "meal_types", force: :cascade do |t|
     t.string "description", null: false
     t.datetime "created_at", null: false
@@ -49,6 +64,7 @@ ActiveRecord::Schema.define(version: 2020_11_25_091325) do
     t.integer "user_id", null: false
     t.string "image"
     t.boolean "star", default: false
+    t.boolean "book", default: false
     t.index ["user_id"], name: "index_meals_on_user_id"
   end
 
@@ -60,6 +76,13 @@ ActiveRecord::Schema.define(version: 2020_11_25_091325) do
     t.index ["course_id"], name: "index_participants_on_course_id"
     t.index ["user_id", "course_id"], name: "index_participants_on_user_id_and_course_id", unique: true
     t.index ["user_id"], name: "index_participants_on_user_id"
+  end
+
+  create_table "requests", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.text "pdfs", default: "--- []\n"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -79,6 +102,8 @@ ActiveRecord::Schema.define(version: 2020_11_25_091325) do
 
   add_foreign_key "comments", "meals"
   add_foreign_key "courses", "users"
+  add_foreign_key "meal_books", "books"
+  add_foreign_key "meal_books", "meals"
   add_foreign_key "participants", "courses"
   add_foreign_key "participants", "users"
 end

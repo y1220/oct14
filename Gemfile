@@ -7,6 +7,8 @@ gem 'carrierwave', '~> 2.1'
 
 gem 'prawn'
 
+gem 'combine_pdf'
+
 gem 'file_validators'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '6.0.3.4'#, '~> 5.2.3'

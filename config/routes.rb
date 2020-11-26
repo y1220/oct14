@@ -41,6 +41,12 @@ Rails.application.routes.draw do
   end
   #resources :meals
 
+  resources :meal_books do
+
+   
+
+  end
+
   resources :meals do
 
     #member do
@@ -78,11 +84,16 @@ Rails.application.routes.draw do
 
   
   namespace :admin do
-    get "/index" , action: "index"    
+    get "/index" , action: "index" 
+    get "/success" , action: "success" 
+    get "/recipe_book" , action: "recipe_book" 
+    post "/create_book" , action: "create_book" 
   end
 
   namespace :export do
-    get "/:id/show.pdf" , action: "show"    
+    get "/premium.pdf" , action: "multiply"   
+    get "/:id/folder.pdf" , action: "folder"
+    get "/:id/download.pdf" , action: "download"      
     get "/:id/receipt.pdf" , action: "receipt"  
   end
 

@@ -14,6 +14,7 @@ class Meal < ApplicationRecord
 
   belongs_to :user
 
+  has_and_belongs_to_many :books
   has_many :comments, dependent: :destroy
 
   #enum star: {  free: false,  pre: true }

@@ -1,0 +1,18 @@
+<div class="main users-index">
+  <div class="container">
+    <h1 class="users-heading">Recipe book</h1>
+    <h2>Here we are, let's combined pdf... :)
+    </h2>
+    <h4 class="users-heading">all pdfs</h4>
+    <%= form_for @request,:url => {controller: "admin", action: "create_book"}, multipart: true do |f| %>
+      <% @meals.each do |meal| %>
+        <%= f.check_box(:pdfs ,   { :multiple => true }) %>
+        <%= f.label 'pdfs[]', meal.title %>
+      <% end %>
+      <p>title</p>
+      <%= f.text_field :title%>
+      <p></p>
+      <%= f.submit%>
+    <% end %>
+  </div>
+</div>

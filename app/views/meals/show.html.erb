@@ -19,10 +19,12 @@
           <%= link_to("modify post", "/meals/#{@meal.id}/edit") %>
           <%= link_to("delete post", "/meals/#{@meal.id}",{method:"post"}) %>
         <%end%>
-        <% if @current_user.role == "premium" && @meal.star == true%>
+        <% if @current_user.role == "admin" && @meal.star == true%>
           <%#= link_to("generate a pdf","/users/#{@current_user.id}/thanks")%>
           <%#= link_to("generate a pdf","/export/#{@meal.id}/receipt.pdf")%>
-          <%= link_to("generate a pdf","/export/#{@meal.id}/show.pdf")%>
+          <%= link_to("pdf in a floder","/export/#{@meal.id}/folder.pdf")%>
+        <% elsif @current_user.role == "premium" && @meal.star == true %>
+          <%= link_to("download a pdf","/export/#{@meal.id}/download.pdf")%>
         <% end %>
         <% @meal.comments.each do |comment|%>
           <% if comment.comment_id.blank? %>
