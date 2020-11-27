@@ -2,8 +2,9 @@ class AdminController < ApplicationController
 
     #before_action :ensure_correct_user
     before_action :authenticate_user 
-    before_action :check_admin
+    before_action :check_admin, {only: [:index, :success]}
     before_action :allowed_params, {only: [:create_book]}
+    before_action :check_admin_or_premium, {only: [:recipe_book, :create_book]}
     
   
   
@@ -61,9 +62,15 @@ class AdminController < ApplicationController
         end
     end
 
-    def set_current_user
-        @current_user= User.find_by(id: session[:user_id])
-    end
+    def check_admin_or_premium
+      if @current_user.role == "basic"
+        redirect_to("/users/upgrade")
+      end
+   end
+
+    #def set_current_user
+    #    @current_user= User.find_by(id: session[:user_id])
+    #end
 
     private  ## has to be the bottom of the page not to let other method as private one
     def show_error (error_message, return_to_address)

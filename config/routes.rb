@@ -28,6 +28,9 @@ Rails.application.routes.draw do
     collection do
 
       get :upgrade
+      get :recipe_book
+      post :create_book
+      get :success 
       #get :thanks
 
     end

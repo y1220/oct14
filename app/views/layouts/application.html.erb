@@ -37,6 +37,9 @@
             <li>
               <%= link_to("Participate a course","/courses")%>
             </li>
+            <li>
+              <%= link_to("Create a book","/users/recipe_book")%>
+            </li>
           <% elsif current_user.role == "admin"%>
             <li>
               <%= link_to("Member","/admin/index")%>

@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag 'application' %>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <h1><%=  @user.name %>, Thanks a lot for creating your book! Hope you enjoy cooking with it :D 
+      </h1>
+      <p>Have a great day, happy cooking!</p>
+      <%= image_tag attachments['smile.png'].url, width: '32', height: '32' %>
+    </div>
+  </body>
+</html>

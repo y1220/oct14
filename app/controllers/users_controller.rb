@@ -5,12 +5,17 @@ class UsersController < ApplicationController
   before_action :authenticate_user ,{only: [:index, :show, :edit, :update, :destroy]}
   before_action :forbid_login_user,{only:[:create, :login_form, :login]}
   before_action :ensure_correct_user ,{only: [:edit, :update, :destroy]}
+  before_action :allowed_params, {only: [:create_book]}
+  before_action :check_basic, {only: [:upgrade]}
 
   #private :show_error (error_message, return_to_address)
 
 
   def index
     @users = User.all
+  end
+
+  def success
   end
 
   def upgrade
@@ -24,6 +29,47 @@ class UsersController < ApplicationController
     if @current_user.role == "basic"
       @current_user.role = "premium"
       @current_user.save
+    end
+  end
+
+  def recipe_book
+    @request = Request.new
+    @meals= Meal.where(book: true)
+  end
+
+  def create_book
+    #byebug
+    arr= allowed_params[:pdfs]
+    @book = Book.new(title: allowed_params[:title])
+    @book.save
+    #pdf_file_names  = []#["pasta.pdf","pizza.pdf"]
+    pdf_meals = [] #array of meals (object)
+
+    arr.count.times{ |i|
+      @mealbook= MealBook.new(meal_id: arr[i],book_id: @book.id)
+      pdf_meals << Meal.find(arr[i])
+      @mealbook.save
+    }
+    
+    pdf_file_paths  = pdf_meals.map! do |meal|
+      meal_type= MealType.find(meal.meal_type)
+      Rails.root.join("app/pdfs/#{meal_type.description}/#{meal.title}.pdf")
+    end
+
+    @pdfForms = CombinePDF.new
+    pdf_file_paths.each do |path|
+      @pdfForms << CombinePDF.load(path) #path is relative path to pdf file stored locally like path/to/801.pdf
+    end
+    @pdfForms.number_pages # numbering is ok to have here, later send it directly to the user so..
+    @pdfForms.save "app/pdfs/user_book/#{@book.title}.pdf"
+    @user = @current_user
+    UserMailer.with(user: @user, book: @book).book_email.deliver_now
+    if !@mealbook.nil?
+      flash[:notice]= "New book created successfully!"
+      redirect_to success_users_url
+    else
+      flash[:notice]= "Inserted account doesn't exist..try again!"
+      render("users/recipe_book")
     end
   end
 
@@ -171,6 +217,16 @@ class UsersController < ApplicationController
   def show_error (error_message, return_to_address)
     flash[:notice]= error_message
     render(return_to_address)
+  end
+
+  def allowed_params
+    params.require(:request)
+  end
+
+  def check_basic
+    unless @current_user.role == "basic"
+      redirect_to("/meals")
+    end
   end
 
 end
