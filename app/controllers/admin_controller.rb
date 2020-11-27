@@ -24,13 +24,30 @@ class AdminController < ApplicationController
       arr= allowed_params[:pdfs]
       @book = Book.new(title: allowed_params[:title])
       @book.save
+      #pdf_file_names  = []#["pasta.pdf","pizza.pdf"]
+      pdf_meals = [] #array of meals (object)
+
       arr.count.times{ |i|
         @mealbook= MealBook.new(meal_id: arr[i],book_id: @book.id)
+        #pdf_file_names << "#{Meal.find(arr[i]).title}.pdf"
+        pdf_meals << Meal.find(arr[i])
         @mealbook.save
       }
+      
+      pdf_file_paths  = pdf_meals.map! do |meal|
+        meal_type= MealType.find(meal.meal_type)
+        Rails.root.join("app/pdfs/#{meal_type.description}/#{meal.title}.pdf")
+      end
+
+      @pdfForms = CombinePDF.new
+      pdf_file_paths.each do |path|
+        @pdfForms << CombinePDF.load(path) #path is relative path to pdf file stored locally like path/to/801.pdf
+      end
+      @pdfForms.number_pages
+      @pdfForms.save "recipe_book/#{@book.title}.pdf"
       if !@mealbook.nil?
         flash[:notice]= "New book created successfully!"
-        redirect_to("/meals")
+        redirect_to admin_success_url
       else
         flash[:notice]= "Inserted account doesn't exist..try again!"
         render("admin/recipe_book")
