@@ -91,7 +91,8 @@ Rails.application.routes.draw do
   end
 
   namespace :export do
-    get "/premium.pdf" , action: "multiply"   
+    get "/premium.pdf" , action: "multiply"
+    get "/info.pdf" , action: "info"     
     get "/:id/folder.pdf" , action: "folder"
     get "/:id/download.pdf" , action: "download"      
     get "/:id/receipt.pdf" , action: "receipt"  

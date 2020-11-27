@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <%= stylesheet_link_tag 'application' %>
+  </head>
+  <body>
+    <div style="text-align: center">
+      <h1>Thanks a lot for upgrading! Let's learn happy cooking together with us :D 
+        <%= @user.name %>
+      </h1>
+      <center>
+        <%= image_tag attachments['upgrade.png'].url, width: '320', height: '64' %>
+      </center>
+      <p>Thanks for joining and have a great day!</p>
+      <%= image_tag attachments['smile.png'].url, width: '32', height: '32' %>
+    </div>
+  </body>
+</html>

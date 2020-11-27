@@ -5,9 +5,9 @@ class ExportController < ApplicationController
 
    
     def multiply
-      pdf_file_names  = ["pasta.pdf","pizza.pdf"]
+      pdf_file_names  = ["welcome/trial1.pdf","recipe_book/welcome_recipe.pdf"]
       pdf_file_paths  = pdf_file_names.map! do |x|
-        Rails.root.join("app/pdfs/main_dish/#{x}")
+        Rails.root.join("app/pdfs/#{x}")
       end
 
       @pdfForms = CombinePDF.new
@@ -15,7 +15,7 @@ class ExportController < ApplicationController
         @pdfForms << CombinePDF.load(path) #path is relative path to pdf file stored locally like path/to/801.pdf
       end
       @pdfForms.number_pages
-      @pdfForms.save "n_combined.pdf"
+      @pdfForms.save "welcome.pdf"
 
       flash[:notice] = "Combined PDF successful"
       redirect_to admin_success_url
@@ -82,7 +82,27 @@ class ExportController < ApplicationController
       end
   end
 
-    def receipt
+  def info
+    respond_to do |format|
+      # some other formats like: format.html { render :show }
+      filename= "trial1"
+      image_name= "hello.png"
+      format.pdf do
+        pdf = ExportPdf.new
+        pdf.text "Welcone!", :color => "0000ff", :size => 32
+        pdf.text "thank you so much for being our member", :size => 28
+        pdf.text "what you wish to cook, do you have any desire to learn?", :size => 28
+        pdf.text "let us know anytime, and learn with enjoyment :)", :size => 28, :style => :nerko
+        pdf.image  Rails.root.join("public/#{image_name}"), :at => [50,550], :width => 450
+        pdf.render_file "#{Rails.root}/app/pdfs/welcome/#{filename}.pdf"
+        flash[:notice] = "PDF genarated in a folder"
+        
+      end
+    
+    end
+end
+
+  def receipt
         respond_to do |format|
             # some other formats like: format.html { render :show }
             

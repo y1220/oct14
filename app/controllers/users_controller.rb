@@ -19,6 +19,8 @@ class UsersController < ApplicationController
   end
 
   def thanks
+    @user = @current_user
+    UserMailer.with(user: @user).upgrade_email.deliver_now
     if @current_user.role == "basic"
       @current_user.role = "premium"
       @current_user.save
@@ -57,7 +59,7 @@ class UsersController < ApplicationController
           if @user.save
             #TaskMailer.creation_email(@user).deliver_now
             
-            UserMailer.with(user: @user).welcome_email.deliver_now
+            #UserMailer.with(user: @user).welcome_email.deliver_now
  
             session[:user_id]=@user.id
             flash[:notice]= "Thank you for the registration!"

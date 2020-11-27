@@ -43,8 +43,8 @@ class AdminController < ApplicationController
       pdf_file_paths.each do |path|
         @pdfForms << CombinePDF.load(path) #path is relative path to pdf file stored locally like path/to/801.pdf
       end
-      @pdfForms.number_pages
-      @pdfForms.save "recipe_book/#{@book.title}.pdf"
+      #@pdfForms.number_pages #not to duplicate numbering
+      @pdfForms.save "app/pdfs/recipe_book/#{@book.title}.pdf"
       if !@mealbook.nil?
         flash[:notice]= "New book created successfully!"
         redirect_to admin_success_url
