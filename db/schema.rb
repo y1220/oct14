@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_26_230713) do
+ActiveRecord::Schema.define(version: 2020_11_27_110508) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
@@ -83,6 +83,7 @@ ActiveRecord::Schema.define(version: 2020_11_26_230713) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "pdfs"
+    t.index ["pdfs"], name: "index_requests_on_pdfs"
   end
 
   create_table "roles", force: :cascade do |t|

@@ -20,26 +20,21 @@ class AdminController < ApplicationController
     end
 
     def create_book
-      @meals= Meal.where(book: true)
-      ans=[]
-      byebug
+      #byebug
       arr= allowed_params[:pdfs]
-      cnt=0 # Number of zero
-      arr.count.times{ |i|
-        if arr[i]==0
-          cnt +=1 
-        else
-          ans << cnt # ans contains position of checked ones
-        end
-      }
       @book = Book.new(title: allowed_params[:title])
       @book.save
-      ans.count.times{ |i|
-        @mealbook= MealBook.new(meal_id: @meals[ans[i]-1],book_id: @book.id)
+      arr.count.times{ |i|
+        @mealbook= MealBook.new(meal_id: arr[i],book_id: @book.id)
         @mealbook.save
       }
+      if !@mealbook.nil?
         flash[:notice]= "New book created successfully!"
         redirect_to("/meals")
+      else
+        flash[:notice]= "Inserted account doesn't exist..try again!"
+        render("admin/recipe_book")
+      end
     end
   
     
@@ -60,8 +55,8 @@ class AdminController < ApplicationController
     end
 
     def allowed_params
-      params.require(:request).
-        permit('pdfs[]',:title)
+      params.require(:request)#.
+        #permit(:pdfs,:title)
     end
 
     

@@ -20,6 +20,8 @@ class ExportController < ApplicationController
       flash[:notice] = "Combined PDF successful"
       redirect_to admin_success_url
     end
+
+    
    
     
     def folder
