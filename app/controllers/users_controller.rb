@@ -8,6 +8,7 @@ class UsersController < ApplicationController
   before_action :allowed_params, {only: [:create_book]}
   before_action :check_basic, {only: [:upgrade]}
 
+  skip_before_action :verify_authenticity_token
   #private :show_error (error_message, return_to_address)
 
 

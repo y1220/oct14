@@ -3,6 +3,13 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 ruby '2.7.0'
 
+gem 'httparty'
+gem 'nokogiri'
+
+gem 'pp'
+
+gem 'rest-client'
+
 gem 'carrierwave', '~> 2.1'
 
 gem 'prawn'
