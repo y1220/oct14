@@ -104,6 +104,7 @@ Rails.application.routes.draw do
   #get '/admin/index' => 'admin#index'
 
   get 'http/trial' => "home#trial2"
+  get 'http/payment' => "home#payment"
 
   get 'meal_types/assignment'
   get 'meals/:id/comments/new' => "comments#new"

@@ -6,6 +6,8 @@ ruby '2.7.0'
 gem 'httparty'
 gem 'nokogiri'
 
+gem 'activemerchant'
+
 gem 'pp'
 
 gem 'rest-client'
