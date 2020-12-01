@@ -38,34 +38,54 @@ class UsersController < ApplicationController
     @meals= Meal.where(book: true)
   end
 
+  @@bid=0
+  @@pdf_file_paths=[]
+
   def create_book
     #byebug
     arr= allowed_params[:pdfs]
     @book = Book.new(title: allowed_params[:title])
     @book.save
+    @@bid= @book.id
     #pdf_file_names  = []#["pasta.pdf","pizza.pdf"]
     pdf_meals = [] #array of meals (object)
 
     arr.count.times{ |i|
-      @mealbook= MealBook.new(meal_id: arr[i],book_id: @book.id)
-      pdf_meals << Meal.find(arr[i])
-      @mealbook.save
+      #@book.meals.create(id: arr[i])
+      @meal= Meal.find(arr[i])
+      pdf_meals << @meal
+      @book.meals << @meal      
+      @book.save
     }
     
-    pdf_file_paths  = pdf_meals.map! do |meal|
+    @@pdf_file_paths  = pdf_meals.map! do |meal|
       meal_type= MealType.find(meal.meal_type)
       Rails.root.join("app/pdfs/#{meal_type.description}/#{meal.title}.pdf")
     end
+    if !@@pdf_file_paths.nil?
+      flash[:notice]= "New book request created successfully, please go to payment for confirmation!"
+      redirect_to confirm_book_users_url
+    else
+      flash[:notice]= "Insertion contains error..try again!"
+      render("users/recipe_book")
+    end
+  end
 
+  def confirm_book
+    @book= Book.find(@@bid)
+  end
+
+  def payment_book
+    @book= Book.find(@@bid)
     @pdfForms = CombinePDF.new
-    pdf_file_paths.each do |path|
+    @@pdf_file_paths.each do |path|
       @pdfForms << CombinePDF.load(path) #path is relative path to pdf file stored locally like path/to/801.pdf
     end
     @pdfForms.number_pages # numbering is ok to have here, later send it directly to the user so..
     @pdfForms.save "app/pdfs/user_book/#{@book.title}.pdf"
     @user = @current_user
     UserMailer.with(user: @user, book: @book).book_email.deliver_now
-    if !@mealbook.nil?
+    if !@pdfForms.nil?
       flash[:notice]= "New book created successfully!"
       redirect_to success_users_url
     else

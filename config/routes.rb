@@ -31,6 +31,8 @@ Rails.application.routes.draw do
       get :recipe_book
       post :create_book
       get :success 
+      get :confirm_book
+      get :payment_book
       #get :thanks
 
     end

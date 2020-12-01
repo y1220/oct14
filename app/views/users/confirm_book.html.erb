@@ -1,0 +1,12 @@
+<div class="main users-index">
+  <div class="container">
+    <h1 class="users-heading">confirmation of your book</h1>
+    <%= "title: "+ @book.title%>
+    <% @book.meals.each do |meal|%>
+      <div class="users-index-item">
+        <%= "#{meal.title}"%>
+      </div>
+    <%end%>
+    <%= link_to("Confirm","/users/payment_book")%>
+  </div>
+</div>

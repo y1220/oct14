@@ -10,12 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_27_110508) do
+ActiveRecord::Schema.define(version: 2020_12_01_093631) do
 
   create_table "books", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "books_meals", id: false, force: :cascade do |t|
+    t.integer "book_id", null: false
+    t.integer "meal_id", null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -38,15 +43,6 @@ ActiveRecord::Schema.define(version: 2020_11_27_110508) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_courses_on_user_id"
-  end
-
-  create_table "meal_books", force: :cascade do |t|
-    t.integer "meal_id", null: false
-    t.integer "book_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["book_id"], name: "index_meal_books_on_book_id"
-    t.index ["meal_id"], name: "index_meal_books_on_meal_id"
   end
 
   create_table "meal_types", force: :cascade do |t|
@@ -103,8 +99,6 @@ ActiveRecord::Schema.define(version: 2020_11_27_110508) do
 
   add_foreign_key "comments", "meals"
   add_foreign_key "courses", "users"
-  add_foreign_key "meal_books", "books"
-  add_foreign_key "meal_books", "meals"
   add_foreign_key "participants", "courses"
   add_foreign_key "participants", "users"
 end
