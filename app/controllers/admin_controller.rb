@@ -29,10 +29,10 @@ class AdminController < ApplicationController
       pdf_meals = [] #array of meals (object)
 
       arr.count.times{ |i|
-        @mealbook= MealBook.new(meal_id: arr[i],book_id: @book.id)
-        #pdf_file_names << "#{Meal.find(arr[i]).title}.pdf"
-        pdf_meals << Meal.find(arr[i])
-        @mealbook.save
+        @meal= Meal.find(arr[i])
+        pdf_meals << @meal
+        @book.meals << @meal      
+        @book.save
       }
       
       pdf_file_paths  = pdf_meals.map! do |meal|
@@ -46,7 +46,7 @@ class AdminController < ApplicationController
       end
       #@pdfForms.number_pages #not to duplicate numbering
       @pdfForms.save "app/pdfs/recipe_book/#{@book.title}.pdf"
-      if !@mealbook.nil?
+      if !@pdfForms.nil?
         flash[:notice]= "New book created successfully!"
         redirect_to admin_success_url
       else
