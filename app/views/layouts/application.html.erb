@@ -5,8 +5,8 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'%>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
@@ -68,8 +68,8 @@
               </li>
               <li class="nav-item">
                 <form action="logout" method="post">
-                  <a class="navbar-brand" href="/logout" onclick="submit();"></a>
-                  <input type="submit" name="mess" value="logout">
+                  <a  class="navbar-brand" href="javascript:;" onclick="parentNode.submit();">Logout</a>
+                  <input type="hidden" name="mess" value="logout">
                 </form>
               </li>
             <%else%>
@@ -101,5 +101,8 @@
     </div>
   <% end %>
   <%= yield %>
+  <nav class="navbar fixed-bottom navbar-light" style="background-color: #ADD8E6;">
+    <a class="navbar-brand" href="/about">About us</a>
+  </nav>
 </body>
 </html>
