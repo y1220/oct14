@@ -8,6 +8,10 @@ gem 'nokogiri'
 
 gem 'activemerchant'
 
+gem 'bootstrap', '~> 4.5.3'
+
+gem 'webpacker'
+
 gem 'pp'
 
 gem 'rest-client'

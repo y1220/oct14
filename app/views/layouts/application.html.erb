@@ -5,88 +5,101 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'%>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <header>
-      <div class="header-logo">
+      <nav class="navbar navbar-dark bg-dark" >
+        <!--nav class="navbar navbar-light bg-light justify-content-between" -->
         <% if @current_user %>
-          <%= link_to("Happy recipe", "/meals") %>
+          <a class="navbar-brand" href="/meals">Happy recipe <span class="sr-only">(current)</span></a>
         <% else %>
-          <%= link_to("Happy recipe", "/") %>
+          <a class="navbar-brand" href="/">Happy recipe <span class="sr-only">(current)</span></a>
         <% end %>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <% current_user = User.find_by(id: session[:user_id])%>
+            <% if current_user %>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/users/<%=@current_user.id%>"><%=@current_user.name+ 
+            "(#{@current_user.role})"%></a></li>
+              <% if current_user.role == "basic"%>
+                <li class="nav-item">
+                  <a class=navbar-brand href="/users/upgrade">Upgrade</a>
+                </li>
+              <% elsif  current_user.role == "premium"%>
+                <li class="nav-item">
+                  <a class="navbar-brand" href="/courses/new">Create a course</a>
+                </li>
+                <li class="nav-item">
+                  <a class="navbar-brand" href="/courses">Participate a course</a>
+                </li>
+                <li class="nav-item">
+                  <a class="navbar-brand" href="/users/recipe_book">Create a book</a>
+                </li>
+              <% elsif current_user.role == "admin"%>
+                <li class="nav-item">
+                  <a class="navbar-brand" href="/admin/index">Member</a>
+                </li>
+                <li class="nav-item">
+                  <a class="navbar-brand" href="/admin/recipe_book">Create a book</a>
+                </li>
+              <% end %>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/meals">Meals</a>
+              </li>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/meals/new">New meal</a>
+              </li>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/meals/search">Search meals</a>
+              </li>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/users">All users</a>
+              </li>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/http/payment">Payment</a>
+              </li>
+              <li class="nav-item">
+                <form action="logout" method="post">
+                  <a class="navbar-brand" href="/logout" onclick="submit();"></a>
+                  <input type="submit" name="mess" value="logout">
+                </form>
+              </li>
+            <%else%>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/about">About us</a>
+              </li>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/users/new">Sign up</a>
+              </li>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/login">Login</a>
+              </li>
+              <li class="nav-item">
+                <a class="navbar-brand" href="/http/trial">HTTP</a>
+              </li>
+            <% end %>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
       </div>
-      <ul class="header-menus">
-        <% current_user = User.find_by(id: session[:user_id])%>
-        <% if current_user %>
-          <li>
-            <!--user_id:
-            <%=session[:user_id]%>-->
-            <%# role= Role.find_by(id: current_user.role)%>
-            <%= link_to(current_user.name+" ( #{current_user.role} )","/users/#{current_user.id}") %>
-          </li>
-          <% if current_user.role == "basic"%>
-            <li>
-              <%= link_to("Upgrade","/users/upgrade")%>
-            </li>
-          <% elsif  current_user.role == "premium"%>
-            <li>
-              <%= link_to("Create a course","/courses/new")%>
-            </li>
-            <li>
-              <%= link_to("Participate a course","/courses")%>
-            </li>
-            <li>
-              <%= link_to("Create a book","/users/recipe_book")%>
-            </li>
-          <% elsif current_user.role == "admin"%>
-            <li>
-              <%= link_to("Member","/admin/index")%>
-            </li>
-            <li>
-              <%= link_to("Create a book","/admin/recipe_book")%>
-            </li>
-          <% end %>
-          <li>
-            <%= link_to("Meals","/meals")%>
-          </li>
-          <li>
-            <%= link_to("New meal","/meals/new")%>
-          </li>
-          <li>
-            <%= link_to("Search meals","/meals/search")%>
-          </li>
-          <li>
-            <%= link_to("All users","/users")%>
-          </li>
-          <li>
-            <%= link_to("Payment","/http/payment")%>
-          </li>
-          <li>
-            <%= link_to("Logout", "/logout", {method: :post})%>
-          </li>
-        <%else%>
-          <li>
-            <%= link_to("About us","/about")%>
-          </li>
-          <li>
-            <%= link_to("Sign up","/users/new")%>
-          </li>
-          <li>
-            <%= link_to("Login","/login")%>
-          </li>
-          <li>
-            <%= link_to("HTTP","/http/trial")%>
-          </li>
-        <% end %>
-      </ul>
-    </header>
-    <% if flash[:notice]%>
-      <div class="flash">
-        <%= flash[:notice]%>
-      </div>
-    <% end %>
-    <%= yield %>
-  </body>
+    </nav>
+  </header>
+  <% if flash[:notice]%>
+    <div class="flash">
+      <%= flash[:notice]%>
+    </div>
+  <% end %>
+  <%= yield %>
+</body>
 </html>
