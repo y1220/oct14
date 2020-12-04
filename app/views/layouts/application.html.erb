@@ -9,11 +9,11 @@
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
   </head>
   <body>
     <header>
-      <nav class="navbar navbar-dark bg-dark" >
+      <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-primary" >
+        <%# <nav class="navbar navbar-dark bg-dark" > %>
         <!--nav class="navbar navbar-light bg-light justify-content-between" -->
         <% if @current_user %>
           <a class="navbar-brand" href="/meals">Happy recipe <span class="sr-only">(current)</span></a>
@@ -117,5 +117,6 @@
   <nav class="navbar fixed-bottom navbar-light" style="background-color: #ADD8E6;">
     <a class="navbar-brand" href="/about">About us</a>
   </nav>
+  <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
 </body>
 </html>
