@@ -1,14 +1,17 @@
 <div class="main users-new">
   <div class="container">
-    <div class="form-heading">Login</div>
+    <div class="p-2 pt-md-4 pb-md-3 mx-auto text-center">
+      <h1 class="display-4">Login</h1>
+    </div>
     <div class="form users-form">
       <div class="form-body">
         <%= form_tag("/login") do%>
-        <p>email</p>
-        <input placeholder="has to include @ and ." name="email" required="true">
-        <p>password</p>
-        <input placeholder="4-8 numbers or characters" name="password" type="password" required="true">
-        <input type="submit" value="login">
+          <p>email</p>
+          <input class="form-control" placeholder="has to include @ and ." name="email" required="true">
+          <p>password</p>
+          <input class="form-control" placeholder="4-8 numbers or characters" name="password" type="password" required="true">
+          <p></p>
+          <input class="btn btn-success btn-lg btn-block mb-3" type="submit" value="login">
         <%end%>
       </div>
     </div>
