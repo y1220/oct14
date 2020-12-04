@@ -9,21 +9,22 @@
           </div>
         <% end %>
         <%= form_for @meal,:url => {controller: "meals", action: "create"}, multipart: true do |f| %>
-          <p>title</p>
-          <%= f.text_field :title%>
-          <p>content</p>
-          <%= f.text_area :content%>
-          <p>type</p>
-          <%= f.select(:meal_type, @descriptions, {}, { :class => 'choose_the_meal_type' }) %>
-          <p>image(optional: choose image file(jpg, jpeg, png))</p>
-          <%= f.file_field :image, accept: 'image/*'%>
+          <label for= "title">Title</label>
+          <%= f.text_field :title, :class => "form-control"%>
+          <label for= "content">Content</label>
+          <%= f.text_area :content, :class => "form-control"%>
+          <label for= "meal_type">Type</label>
+          <%= f.select(:meal_type, @descriptions, {}, { :class => "form-control"}) %>
+          <p></p>
+          <label for= "image">Image(optional: choose image file(jpg, jpeg, png))</label>
+          <%= f.file_field :image, accept: 'image/*' %>
           <% if @current_user.role == "premium"%>
-            <p>premium</p>
+            <label for= "premium">Premium</label>
             <%#= f.select :star, options_for_select([['premium', true], ['free', false]]) %>
-            <%= f.select :star, {'premium': true, 'free': false}, {  required: true } %>
+            <%= f.select :star, {'premium': true, 'free': false}, {  required: true , :class => "form-control" } %>
           <% end %>
           <p></p>
-          <%= f.submit%>
+          <%= f.submit :class => "btn btn-success  mb-3 float-right"%>
         <%end%>
       </div>
     </div>
