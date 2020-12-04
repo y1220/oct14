@@ -15,16 +15,7 @@
               Delete
             </a>
           </div>
-          <%= link_to("modify", "/users/#{@user.id}/edit") %>
-          <%= link_to("delete", "/users/#{@user.id}",{method:"delete"}) %>
         <%end%></center>
-      <form action="destroy" method="delete">
-        <a type="button" data-toggle="modal" data-target="#deleteUser" class= "btn btn-danger"
-                                href="/users/<%=@user.id%>" onclick="parentNode.submit();">
-          Delete
-        </a>
-        <input type="hidden" name="mess" value="delete">
-      </form>
     </div>
     <% @user.meals.each do |meal| %>
       <div class="meals-index-item">
