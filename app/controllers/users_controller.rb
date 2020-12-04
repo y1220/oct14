@@ -157,7 +157,7 @@ class UsersController < ApplicationController
       @user.assign_attributes(name: params[:user_name], email: params[:email], password: params[:user_password])
       if /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.match(params[:email])
         if /^[a-zA-Z0-9_.+-]{4,8}$/.match(params[:user_password])
-          byebug
+          
           if @user.save
             #TaskMailer.creation_email(@user).deliver_now
             

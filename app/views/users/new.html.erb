@@ -10,12 +10,13 @@
         <% end %>
         <%= form_tag("/users") do%>
           <p>user name</p>
-          <input name="user_name" required="true">
+          <input class="form-control" name="user_name" required="true">
           <p>email</p>
-          <input placeholder="has to include @ and ." name="email" required="true">
+          <input class="form-control" placeholder="has to include @ and ." name="email" required="true">
           <p>password</p>
-          <input placeholder="4-8 numbers or characters" name="user_password" type="password" required="true">
-          <input type="submit" value="send">
+          <input class="form-control" placeholder="4-8 numbers or characters" name="user_password" type="password" required="true">
+          <p></p>
+          <input class="btn btn-success btn-lg btn-block mb-3" type="submit" value="send">
         <%end%>
       </div>
     </div>
