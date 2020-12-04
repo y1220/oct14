@@ -1,90 +1,6 @@
 <div class="main meals-index">
   <div class="container">
     <h1 class="users-heading">all meals</h1>
-    <% @meals.each do |meal|%>
-      <div class="meals-index-item">
-        <%#byebug%>
-        <% if meal.star == true %>
-          <div class= "king">
-            <span class="fa fa-star"></span>
-          </div>
-          <% if @current_user.role != "basic"%>
-            <%= link_to(meal.title,"/meals/#{meal.id}")%>
-          <% else %>
-            <%= link_to(meal.title,"/users/upgrade")%>
-          <% end %>
-        <% else %>
-          <%= link_to(meal.title,"/meals/#{meal.id}")%>
-        <% end %>
-        <div class="meal-user-name">
-          <%= link_to(meal.user.name,"/users/#{meal.user.id}")%>
-          <%#= meal.title %>
-          <%#= meal.user.name %>
-        </div>
-      </div>
-    <% end%>
-  </div>
-  <div class="container mt-5">
-    <div class="row">
-      <div class="col-md-4">
-        <img width="250" height="175" src="/breakfast.png">
-        <h2>Christmas apple pie</h2>
-        <p>Happy holidays with this pie!</p>
-        <p><a class="btn btn-primary" href="applepie.html" role="button">View details</a></p>
-      </div>
-      <div class="col-md-4">
-        <img width="250" height="175" src="/wait.png">
-        <h2>Apple pie</h2>
-        <p>Our famous apple pies!</p>
-        <p><a class="btn btn-primary" href="applepie.html" role="button">View details</a></p>
-      </div>
-      <div class="col-md-4">
-        <img width="250" height="175" src="/breakfast.png">
-        <h2>Cranberry pie</h2>
-        <p>A Christmas favorite</p>
-        <p><a class="btn btn-primary" href="applepie.html" role="button">View details</a></p>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-4">
-        <img width="175" height="175" src="/wait.png">
-        <h2>Apple pie</h2>
-        <p>Our famous apple pies!</p>
-        <p><a class="btn btn-primary" href="applepie.html" role="button">View details</a></p>
-      </div>
-      <div class="col-md-4">
-        <img width="175" height="175" src="/breakfast.png">
-        <h2>Blueberry cheese cake</h2>
-        <p>A Christmas favorite</p>
-        <p><a class="btn btn-primary" href="applepie.html" role="button">You'll love it!</a></p>
-      </div>
-      <div class="col-md-4">
-        <img width="175" height="175" src="/wait.png">
-        <h2>Apple pie</h2>
-        <p>Our famous apple pies!</p>
-        <p><a class="btn btn-primary" href="applepie.html" role="button">View details</a></p>
-      </div>
-    </div>
-  </div>
-  <div class="container mt-5">
-    <% cnt =0 %>
-    <% 6.times do %>
-      <% if cnt ==0  || cnt%3==0 %>
-        <div class="row">
-        <% end %>
-        <div class="col-md-4">
-          <img width="250" height="175" src="/breakfast.png">
-          <h2>Christmas apple pie:<%=cnt%></h2>
-          <p>Happy holidays with this pie!</p>
-          <p><a class="btn btn-primary" href="applepie.html" role="button">View details</a></p>
-        </div>
-        <% cnt += 1 %>
-        <% if cnt%3==0 %>
-        </div>
-      <% end %>
-    <% end %>
-  </div>
-  <div class="container mt-5">
     <% cnt =0 %>
     <% @meals.each do |meal|%>
       <% if cnt ==0  || cnt%3==0 %>
@@ -96,7 +12,7 @@
           <%else%>
             <img width="250" height="175" src="/wait.png">
           <%end%>
-          <h2><%= meal.title %>: <%=cnt%></h2>
+          <h2><%=cnt+1%>: <%= meal.title %></h2>
           <p><%= meal.content %></p>
           <p><a class="btn btn-primary" href="/meals/<%=meal.id%>" role="button">View details</a></p>
         </div>
