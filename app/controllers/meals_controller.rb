@@ -14,7 +14,9 @@ class MealsController < ApplicationController
 
 
   def index
-    @meals = Meal.all.order(created_at: :desc)
+    #@meals = Meal.all.order(created_at: :desc)
+    @meals = Meal.page(params[:page]).per(6).order(created_at: :desc)
+    @nump=params[:page]
   end
 
   # show action -> to show recipe depends on each meal

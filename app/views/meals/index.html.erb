@@ -8,11 +8,12 @@
         <% end %>
         <div class="col-md-4">
           <%if meal.image.present? %>
-            <img width="250" height="175" src="<%= "#{meal.image}"%>">
+            <img  width="250" height="175" src="<%= "#{meal.image}"%>"class="img-circle">
           <%else%>
-            <img width="250" height="175" src="/wait.png">
+            <img class="img-polaroid" width="250" height="175" src="/wait.png">
           <%end%>
-          <h2><%=cnt+1%>: <%= meal.title %></h2>
+          <h2><%=cnt+1+(@nump.to_i-1)*6%>: <%= meal.title %></h2>
+          <%# <span class="icon-edit"></span>icon-edit %>
           <p><%= meal.content %></p>
           <p><a class="btn btn-primary" href="/meals/<%=meal.id%>" role="button">View details</a></p>
         </div>
@@ -21,5 +22,24 @@
         </div>
       <% end %>
     <% end %>
+    <%= paginate @meals%>
+    <p>last</p>
+    <%# <nav aria-label="Page navigation example">
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Previous">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" href="#">1</a></li>
+        <li class="page-item"><a class="page-link" href="#">2</a></li>
+        <li class="page-item"><a class="page-link" href="#">3</a></li>
+        <li class="page-item">
+          <a class="page-link" href="#" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav> %>
   </div>
 </div>
