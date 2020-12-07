@@ -6,7 +6,7 @@ class Meal < ApplicationRecord
 
   mount_uploader :image, FileUploader
   serialize :image, JSON # If you use SQLite, add this line.
-  validates :content, {presence: true, length: {maximum: 100}}
+  validates :content, {presence: true, length: {maximum: 5000}}
   validates :user_id, {presence: true}
   validates :title, {presence: true}
   validates :meal_type, {presence: true}

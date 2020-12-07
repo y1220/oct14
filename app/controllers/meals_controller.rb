@@ -78,7 +78,7 @@ class MealsController < ApplicationController
         #File.binwrite("public/meal_images/1.jpg",image_pic.read)
         #File.binwrite("public/meal_images/#{@meal.image}",image_pic.read)
       end
-      flash[:notice]= "New meal created successfully!#{allowed_params["star"]}"
+      flash[:notice]= "New meal created successfully!"
       redirect_to("/meals")
       #render("/meals/index")
     else
