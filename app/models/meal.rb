@@ -17,6 +17,8 @@ class Meal < ApplicationRecord
   has_and_belongs_to_many :books
   has_many :comments, dependent: :destroy
 
+  enum meal_type: { appetizer: 1, main_dish: 2, side_dish: 3, desert: 4 }
+
   #enum star: {  free: false,  pre: true }
   #validates :image, file_size: { less_than: 500.kilobytes }
   #validate :file_size

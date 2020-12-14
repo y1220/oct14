@@ -6,7 +6,7 @@
           <%= link_to(@user.name, "/users/#{@user.id}")%></p>
         <p><%= "title: #{@meal.title}"%></p>
         <p><%= "recipe: #{@meal.content}"%></p>
-        <p><%= "type of meal: #{@mealType.description}"%></p>
+        <p><%= "type of meal: #{@meal.meal_type}"%></p>
       </div>
       <div class="meal-menus">
         <% if @meal.user_id == @current_user.id %>

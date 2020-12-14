@@ -24,7 +24,7 @@ class MealsController < ApplicationController
     #@id = params[:id]
     @meal = Meal.find_by(id: params[:id])
     @user = @meal.user
-    @mealType = MealType.find_by(id: @meal.meal_type)
+    #@mealType = MealType.find_by(description: @meal.meal_type)#id: @meal.meal_type)
 
   end
 
@@ -45,8 +45,8 @@ class MealsController < ApplicationController
 
     @meal.title=allowed_params["title"]
     @meal.content=allowed_params["content"]
-    @mealType = MealType.find_by(description: allowed_params["meal_type"])
-    @meal.meal_type=@mealType.id
+    #@mealType = MealType.find_by(description: allowed_params["meal_type"])
+    @meal.meal_type=allowed_params["meal_type"]#@mealType.id
     if @current_user.role == "premium"
       @meal.star= allowed_params["star"]
     end
@@ -103,8 +103,9 @@ class MealsController < ApplicationController
 
     @meal.title=allowed_params["title"]
     @meal.content=allowed_params["content"]
-    @mealType = MealType.find_by(description: allowed_params["meal_type"])
-    @meal.meal_type=@mealType.id
+    #@mealType = MealType.find_by(description: allowed_params["meal_type"])
+    #@meal.meal_type=@mealType.id
+    @meal.meal_type= allowed_params["meal_type"]
     @meal.user_id= @current_user.id
     image_from_params = params[:meal][:image]
     if @meal.save
@@ -114,7 +115,7 @@ class MealsController < ApplicationController
         @meal.save!
       end
       flash[:notice]= "New meal created successfully!"
-      redirect_to("/meals/index")
+      redirect_to("/meals")
     else
       @meal = Meal.find_by(id: params[:id])
       show_error("Inserted id doesn't exist..try again!","meals/#{params[:id]}/edit")

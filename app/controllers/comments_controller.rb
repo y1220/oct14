@@ -29,7 +29,7 @@ class CommentsController < ApplicationController
     @to_reply= Comment.find_by(id: params[:id])
     @meal=Meal.find_by(id: @comment.meal_id)
     @user = @meal.user
-    @mealType = MealType.find_by(id: @meal.meal_type)
+    #@mealType = MealType.find_by(id: @meal.meal_type)
     #@reply = @comment.comments.create(message: params[:message],user_id: @current_user.id)
     @cid= params[:id]
   end
@@ -43,7 +43,7 @@ class CommentsController < ApplicationController
     @comment= @meal.comments.create(message: params[:message], commenter: @current_user.id, comment_id: @cid)
     #@comment = Comment.new(message: params[:message],user_id: @current_user.id,comment_id: @cid,meal_id: @meal.id)
     @comment.save
-    @mealType = MealType.find_by(id: @meal.meal_type)
+    #@mealType = MealType.find_by(id: @meal.meal_type)
     if @comment.save
       flash[:notice]= "Comment has been registered!"
       #flash[:notice]= "Thank you for your comment!"
